@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stickherogame.ControllerSceneTwo">
+    <children>
+        <ImageView fitHeight="400.0" fitWidth="618.0" pickOnBounds="true">
+            <image>
+                <Image url="@Images/background.png" />
+            </image>
+        </ImageView>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="200.0" layoutX="107.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="94.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="200.0" layoutX="388.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="157.0" />
+        <ImageView fitHeight="36.0" fitWidth="68.0" layoutX="550.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/pause.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="36.0" fitWidth="138.0" layoutX="134.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/player-removebg-preview.png" />
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>
