@@ -31,27 +31,27 @@
                 <Font name="Agency FB Bold" size="35.0" />
             </font>
         </Label>
-        <Button layoutX="291.0" layoutY="136.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="108.0" style="-fx-background-radius: 50; -fx-background-color: red;" text="PLAY" textFill="WHITE">
+        <Button layoutX="291.0" layoutY="136.0" mnemonicParsing="false" onAction="#playbutton" prefHeight="102.0" prefWidth="108.0" style="-fx-background-radius: 50; -fx-background-color: red;" text="PLAY" textFill="WHITE">
             <font>
                 <Font name="Franklin Gothic Medium" size="29.0" />
             </font>
         </Button>
-        <ImageView blendMode="DARKEN" fitHeight="45.0" fitWidth="54.0" layoutX="14.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView blendMode="DARKEN" fitHeight="45.0" fitWidth="54.0" layoutX="14.0" layoutY="261.0" onMouseClicked="#help" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/question_mark.jpg" />
             </image>
         </ImageView>
-        <ImageView blendMode="DARKEN" fitHeight="45.0" fitWidth="60.0" layoutX="8.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="sound" blendMode="DARKEN" fitHeight="45.0" fitWidth="60.0" layoutX="8.0" layoutY="329.0" onMouseClicked="#sound" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/sound_icon.png" />
             </image>
         </ImageView>
-        <ImageView blendMode="HARD_LIGHT" fitHeight="45.0" fitWidth="90.0" layoutX="609.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView blendMode="HARD_LIGHT" fitHeight="45.0" fitWidth="90.0" layoutX="609.0" layoutY="261.0" onMouseClicked="#loadAndSave" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/load.png" />
             </image>
         </ImageView>
-        <Button layoutX="606.0" layoutY="329.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="54.0" style="-fx-background-radius: 100; -fx-background-color: coral;" text="Skins">
+        <Button layoutX="606.0" layoutY="329.0" mnemonicParsing="false" onMouseClicked="#skins" prefHeight="33.0" prefWidth="54.0" style="-fx-background-radius: 100; -fx-background-color: coral;" text="Skins">
             <font>
                 <Font name="Eras Bold ITC" size="12.0" />
             </font>
