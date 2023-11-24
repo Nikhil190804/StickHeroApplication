@@ -18,8 +18,6 @@ public class MainApplication extends Application {
         stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.setTitle("Stick Hero");
-
-
         stage.show();
     }
 
