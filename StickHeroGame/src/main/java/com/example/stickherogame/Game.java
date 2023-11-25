@@ -1,5 +1,6 @@
 package com.example.stickherogame;
 
+
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -8,11 +9,12 @@ import javafx.stage.Stage;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
-import java.util.stream.LongStream;
+
+
 
 public class Game implements Render,Movable {
     private int HighScore;
-    private Stage stage;
+    private ControllerSceneTwo controllerSceneTwo;
 
     public int getHighScore() {
         return HighScore;
@@ -45,11 +47,11 @@ public class Game implements Render,Movable {
     public static Queue<Cherry> cherries;
     private final int PLATFORM_COUNT=2;
 
-    public Game(boolean value,Stage myStage){
+    public Game(boolean value, ControllerSceneTwo cont2){
         this.isFinished=value;
         Game.platforms= new ArrayDeque<>();
         Game.cherries=new ArrayDeque<>();
-        this.stage=myStage;
+        this.controllerSceneTwo=cont2;
     }
     @Override
     public double move(double distance) {
@@ -74,6 +76,8 @@ public class Game implements Render,Movable {
     }
     public void changeScene2to3(){}
     public void runner(){
-        boolean playSoundResult=Sound.playSound(1);
+        boolean playSoundResult=Sound.playSound(2);
+
     }
+
 }

@@ -10,7 +10,7 @@ public class Sound {
            try {
                File newFile = new File(AudioFilePath);
                if (newFile.exists() == true) {
-                   System.out.println("valid");
+                   //System.out.println("valid");
                    String uriString = newFile.toURI().toString();
                    Media media = new Media(uriString);
                    MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -31,10 +31,10 @@ public class Sound {
 
 /*
 Mapping of the Audio Files:-----
-Sound1 :
-Sound2 :
-Sound3 :
-Sound4 :
-Sound5 :
+Sound1 : Stick Grow
+Sound2 : Button click
+Sound3 : Death (Player falls)
+Sound4 : Score (Player reaches to next platfrom)
+Sound5 : Death (Player falls with a bang)
 
  */

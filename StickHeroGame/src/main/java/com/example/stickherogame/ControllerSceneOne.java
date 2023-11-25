@@ -1,5 +1,6 @@
 package com.example.stickherogame;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,12 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.Stack;
+
 
 public class ControllerSceneOne {
     private Parent root;
@@ -22,17 +20,17 @@ public class ControllerSceneOne {
     private Scene scene;
 
     public void playbutton(ActionEvent event) throws IOException {
+        boolean playSoundResult=Sound.playSound(2);
         root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
         scene = new Scene(root);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
         System.out.println("play");
-        Game newGame = new Game(false,stage);
-        newGame.runner();
     }
 
     public void help(MouseEvent event) {
+        boolean playSoundResult=Sound.playSound(2);
         Alert alert = new Alert(Alert.AlertType.NONE, "", ButtonType.CLOSE);
         alert.setTitle("Help");
         alert.setResizable(true);
@@ -42,6 +40,7 @@ public class ControllerSceneOne {
 
 
     public void sound(MouseEvent event) {
+        boolean playSoundResult=Sound.playSound(2);
         String id_of_image = ((ImageView) event.getSource()).getId();
         if (id_of_image.equals("sound")) {
             System.out.println("sound");
@@ -61,10 +60,12 @@ public class ControllerSceneOne {
     }
 
     public void skins(MouseEvent event) {
+        boolean playSoundResult=Sound.playSound(2);
         System.out.println("skins");
     }
 
     public void loadAndSave(MouseEvent event) {
+        boolean playSoundResult=Sound.playSound(2);
         System.out.println("loadandsave");
     }
 
