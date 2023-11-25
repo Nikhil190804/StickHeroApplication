@@ -29,6 +29,7 @@ public class ControllerSceneTwo implements Initializable {
     private Stage stage;
     private Scene scene;
     public void pausemenu(MouseEvent event){
+        boolean playSoundResult=Sound.playSound(2);
        pausemenu.setVisible(true);
         System.out.println("pause");
     }

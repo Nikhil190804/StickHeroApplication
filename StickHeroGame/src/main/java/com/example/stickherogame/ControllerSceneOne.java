@@ -1,8 +1,6 @@
 package com.example.stickherogame;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,16 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import javafx.util.Duration;
-import java.util.Stack;
+
 
 public class ControllerSceneOne {
     private Parent root;
@@ -30,23 +21,6 @@ public class ControllerSceneOne {
 
     public void playbutton(ActionEvent event) throws IOException {
         boolean playSoundResult=Sound.playSound(2);
-        if(playSoundResult==false){
-            //show a label on screen
-            /*
-            Label no_sound_label = new Label();
-            no_sound_label.setText("Cant Play Sound!!!!!!");
-            no_sound_label.setTextFill(Color.RED);
-            no_sound_label.setFont(Font.font("System", FontWeight.BOLD, 14));
-            scene = new Scene(no_sound_label,100,100);
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3),no_sound_label);
-            fadeTransition.setFromValue(1.0);
-            fadeTransition.setToValue(0.0);
-            fadeTransition.play();*/
-        }
-
         root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
         scene = new Scene(root);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -56,6 +30,7 @@ public class ControllerSceneOne {
     }
 
     public void help(MouseEvent event) {
+        boolean playSoundResult=Sound.playSound(2);
         Alert alert = new Alert(Alert.AlertType.NONE, "", ButtonType.CLOSE);
         alert.setTitle("Help");
         alert.setResizable(true);
@@ -65,6 +40,7 @@ public class ControllerSceneOne {
 
 
     public void sound(MouseEvent event) {
+        boolean playSoundResult=Sound.playSound(2);
         String id_of_image = ((ImageView) event.getSource()).getId();
         if (id_of_image.equals("sound")) {
             System.out.println("sound");
@@ -84,10 +60,12 @@ public class ControllerSceneOne {
     }
 
     public void skins(MouseEvent event) {
+        boolean playSoundResult=Sound.playSound(2);
         System.out.println("skins");
     }
 
     public void loadAndSave(MouseEvent event) {
+        boolean playSoundResult=Sound.playSound(2);
         System.out.println("loadandsave");
     }
 
