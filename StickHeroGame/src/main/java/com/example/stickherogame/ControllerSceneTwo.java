@@ -54,9 +54,14 @@ public class ControllerSceneTwo implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         newGame = new Game(false,this);
-        newGame.runner();
+        newGame.startme();
     }
 
     private void displaySoundErrorLabel() {
+    }
+
+    public void renderPlatforms(Platform platform1, Platform platform2){
+        parent_anchorpane.getChildren().add(platform1);
+        parent_anchorpane.getChildren().add(platform2);
     }
 }

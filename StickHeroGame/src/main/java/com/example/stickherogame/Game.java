@@ -5,6 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayDeque;
@@ -76,8 +79,13 @@ public class Game implements Render,Movable {
     }
     public void changeScene2to3(){}
     public void runner(){
-        boolean playSoundResult=Sound.playSound(2);
+        Platform platformStart = platforms.remove();
+        Platform platformEnd = platforms.remove();
+        controllerSceneTwo.renderPlatforms(platformStart,platformEnd);
 
+    }
+    public void startme(){
+        runner();
     }
 
 }
