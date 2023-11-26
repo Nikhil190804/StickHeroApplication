@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.event.EventTarget;
@@ -54,15 +56,27 @@ public class ControllerSceneTwo implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         newGame = new Game(false,this);
-        newGame.startme();
+        newGame.runner();
     }
 
     private void displaySoundErrorLabel() {
     }
 
     public void renderPlatforms(Platform platform1, Platform platform2){
+        Rectangle rc = new Rectangle(platform1.getWidthOfPlatform(),platform1.getHeightOfPlatform(),platform1.getColor());
+        //rc.setX(platform1.getStartingX());
+
+        rc.setLayoutX(120);
+        rc.setLayoutY(250);
+        //rc.setY(0);
+        platform1.setLayoutX(120);
+        platform1.setLayoutY(250);
+        platform1.setWidth(platform1.getWidthOfPlatform());
+        platform1.setHeight(platform1.getHeightOfPlatform());
         parent_anchorpane.getChildren().add(platform1);
-        parent_anchorpane.getChildren().add(platform2);
+        //parent_anchorpane.getChildren().add(rc);
+        //parent_anchorpane.getChildren().add(platform2);
+
     }
 
 

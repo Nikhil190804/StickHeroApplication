@@ -86,8 +86,6 @@ public class Game implements Render,Movable {
         controllerSceneTwo.renderPlatforms(platformStart,platformEnd);
 
     }
-    public void startme(){
-        runner();
-    }
+
 
 }

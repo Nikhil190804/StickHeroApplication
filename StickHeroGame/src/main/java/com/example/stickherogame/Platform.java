@@ -7,6 +7,17 @@ import java.util.*;
 public class Platform extends Rectangle implements RandomObjectGenerator{
     private final double Height=150;
     private final Color color = Color.BLACK;
+
+
+    public double getHeightOfPlatform() {
+        return Height;
+    }
+
+
+    public double getWidthOfPlatform() {
+        return width;
+    }
+
     private double width;
     private double startingX;
     private double endingX;
