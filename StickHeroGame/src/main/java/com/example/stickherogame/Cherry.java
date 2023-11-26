@@ -1,8 +1,31 @@
 package com.example.stickherogame;
 
 import javafx.scene.image.ImageView;
-
+import java.util.*;
 public class Cherry extends ImageView implements RandomObjectGenerator{
+    private final double Height=150;
+    private final double Width=150;
+    double x_coordinate;
+
+
+    public Cherry() {
+
+        this.hasBeenCollected = hasBeenCollected;
+
+
+    }
+
+
+    public static void randomGenerator(double startingX , double endingX, Queue<Cherry> cherries){
+        Cherry cherry = new Cherry();
+        Random random = new Random();
+        double randomX = random.nextDouble() * Math.abs(startingX - endingX  - cherry.getWidth());
+        cherry.x_coordinate = randomX;
+        cherries.add(cherry);
+    }
+
+
+    private boolean hasBeenCollected = false;
     public double getHeight() {
         return Height;
     }
@@ -19,19 +42,24 @@ public class Cherry extends ImageView implements RandomObjectGenerator{
         this.hasBeenCollected = hasBeenCollected;
     }
 
-    public Cherry(boolean hasBeenCollected) {
-        this.hasBeenCollected = hasBeenCollected;
+    public double getX_coordinate() {
+        return x_coordinate;
     }
-    private final double Height=150;
-    private final double Width=150;
-    private boolean hasBeenCollected;
 
+    public void setX_coordinate(double x_coordinate) {
+        this.x_coordinate = x_coordinate;
+    }
+
+
+//    Dont know how to use this
     public static boolean cherrySpawned(){
         return true;
     }
 
+
+//    to be done after stick class to check collision
     public boolean checkCollision(Player player){
         return false;
     }
-    public static void randomGenerator(){}
+
 }

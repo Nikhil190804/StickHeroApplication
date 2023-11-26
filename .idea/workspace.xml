@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="83dfb389-4407-485d-91b6-60e8002c0b80" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StickHeroGame/src/main/java/com/example/stickherogame/ControllerSceneTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/StickHeroGame/src/main/java/com/example/stickherogame/ControllerSceneTwo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StickHeroGame/src/main/java/com/example/stickherogame/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/StickHeroGame/src/main/java/com/example/stickherogame/Game.java" afterDir="false" />
+=======
+    <list default="true" id="e0c0dea1-6935-480e-916b-5ff675b0dc4b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StickHeroGame/src/main/java/com/example/stickherogame/Cherry.java" beforeDir="false" afterPath="$PROJECT_DIR$/StickHeroGame/src/main/java/com/example/stickherogame/Cherry.java" afterDir="false" />
+>>>>>>> e635bb213b02e07241e923d232b4aa876923b06b
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,30 +26,52 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2YfJe5n7CAFL2591LqAkeBo1hWR" />
+=======
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2YcjiUXn9O5rMq2UxrErSj3Wk4p" />
+>>>>>>> e635bb213b02e07241e923d232b4aa876923b06b
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/niketagarwal/Desktop/project/AP_GroupProject&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+>>>>>>> e635bb213b02e07241e923d232b4aa876923b06b
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="83dfb389-4407-485d-91b6-60e8002c0b80" name="Changes" comment="" />
-      <created>1700910794893</created>
+      <changelist id="e0c0dea1-6935-480e-916b-5ff675b0dc4b" name="Changes" comment="" />
+      <created>1700831888874</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1700910794893</updated>
+      <updated>1700831888874</updated>
     </task>
     <servers />
   </component>
