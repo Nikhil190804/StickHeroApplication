@@ -79,6 +79,8 @@ public class Game implements Render,Movable {
     }
     public void changeScene2to3(){}
     public void runner(){
+        Platform.randomGenerator();
+        Platform.randomGenerator();
         Platform platformStart = platforms.remove();
         Platform platformEnd = platforms.remove();
         controllerSceneTwo.renderPlatforms(platformStart,platformEnd);

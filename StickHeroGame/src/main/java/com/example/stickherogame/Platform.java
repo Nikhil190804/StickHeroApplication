@@ -50,7 +50,7 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
         this.endingX = endingX;
     }
 
-    public static Platform randomGenerator(Queue<Platform> platforms){
+    public static Platform randomGenerator(){
         Random random = new Random();
 
         double width = MIN_WIDTH + random.nextDouble() * (MAX_WIDTH - MIN_WIDTH);
@@ -58,8 +58,7 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
         double endingX = MIN_ENDING_X + random.nextDouble() * (MAX_ENDING_X - MIN_ENDING_X);
 
         Platform platform = new Platform(width, startingX, endingX);
-        platforms.add(platform);
-
+        Game.platforms.add(platform);
         return platform;
     }
 

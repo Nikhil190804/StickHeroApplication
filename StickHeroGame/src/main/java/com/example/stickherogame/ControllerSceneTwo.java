@@ -64,4 +64,6 @@ public class ControllerSceneTwo implements Initializable {
         parent_anchorpane.getChildren().add(platform1);
         parent_anchorpane.getChildren().add(platform2);
     }
+
+
 }
