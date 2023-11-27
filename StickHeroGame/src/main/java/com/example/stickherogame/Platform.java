@@ -26,10 +26,10 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
 
     private static final double MIN_WIDTH = 50;
     private static final double MAX_WIDTH = 200;
-    private static final double MIN_STARTING_X = 70;
+    private static final double MIN_STARTING_X = 0;
     private static final double MAX_STARTING_X = 399;
-    private double MIN_ENDING_X = 0;
-    private static final double MAX_ENDING_X = 630;
+    private static final double MIN_ENDING_X = 100;
+    private static final double MAX_ENDING_X = 600;
 
     public double getMIN_WIDTH() {
         return MIN_WIDTH;
@@ -62,27 +62,11 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
     }
 
     public static Platform randomGenerator(){
-
         Random random = new Random();
 
-        if (Game.platforms.size()==0){
-            double startingX = MIN_STARTING_X;
-            double width = MIN_WIDTH + random.nextDouble() * (MAX_WIDTH - MIN_WIDTH);
-            double endingX = startingX + width;
-            Platform platform = new Platform(width, startingX, endingX);
-            Game.platforms.add(platform);
-
-        }
-
-        Platform firstplatform = Game.platforms.peek();
-
-
-
-
-
         double width = MIN_WIDTH + random.nextDouble() * (MAX_WIDTH - MIN_WIDTH);
-        double startingX = firstplatform.endingX + random.nextDouble() * (MAX_STARTING_X - firstplatform.getEndingX());
-        double endingX = startingX + width;
+        double startingX = MIN_STARTING_X + random.nextDouble() * (MAX_STARTING_X - MIN_STARTING_X);
+        double endingX = MIN_ENDING_X + random.nextDouble() * (MAX_ENDING_X - MIN_ENDING_X);
 
         Platform platform = new Platform(width, startingX, endingX);
         Game.platforms.add(platform);
