@@ -1,5 +1,6 @@
 package com.example.stickherogame;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,6 +14,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -31,6 +34,33 @@ public class ControllerSceneOne {
         stage.show();
         stage.setOnCloseRequest(this::closing);
         System.out.println("play");
+        /*
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(1));
+        fadeOut.setNode(((Node) event.getSource()).getScene().getRoot());
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+        fadeOut.setOnFinished(e -> {
+            try {
+                // Load the new scene
+                Parent root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
+
+                // Create a fade in transition for the new scene
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
+                fadeIn.setFromValue(0);
+                fadeIn.setToValue(1);
+
+                // Set up the new scene and show it
+                Scene newScene = new Scene(root);
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(newScene);
+                fadeIn.play();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        // Start the fade out transition
+        fadeOut.play();*/
     }
 
     private void closing(WindowEvent event){
