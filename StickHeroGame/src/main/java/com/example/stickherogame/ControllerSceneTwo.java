@@ -65,10 +65,10 @@ public class ControllerSceneTwo implements Initializable {
     }
 
     public void renderPlatforms(Platform platform1, Platform platform2){
-        platform1.setLayoutX(65);
+        platform1.setLayoutX(platform1.getStartingX());
         platform1.setLayoutY(250);
+        platform2.setLayoutX(platform2.getStartingX());
         platform2.setLayoutY(250);
-        platform2.setLayoutX(400);
         platform1.setWidth(platform1.getWidthOfPlatform());
         platform1.setHeight(platform1.getHeightOfPlatform());
         platform2.setHeight(platform2.getHeightOfPlatform());
