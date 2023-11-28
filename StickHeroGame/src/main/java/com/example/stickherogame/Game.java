@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
-
+import java.util.Random;
 
 
 public class Game implements Render,Movable {
@@ -90,27 +90,39 @@ public class Game implements Render,Movable {
     public void runner(){
         // run the game until not finished
         while (isFinished==false){
+            Platform platform1 = Game.platforms.peek();
+            platform1.setStartingX(65);
+            platform1.setY(250);
+            Platform.randomGenerator(platform1);
+            Game.platforms.poll();
+
+            Platform platform2 = Game.platforms.peek();
+
+            controllerSceneTwo.renderPlatforms(platform1,platform2);
 
 
         }
-        Platform.randomGenerator();
-        Platform.randomGenerator();
-        Platform platformStart = platforms.remove();
-        Platform platformEnd = platforms.remove();
-        controllerSceneTwo.renderPlatforms(platformStart,platformEnd);
+//        Platform.randomGenerator();
+//        Platform.randomGenerator();
+//        Platform platformStart = platforms.remove();
+//        Platform platformEnd = platforms.remove();
+//        controllerSceneTwo.renderPlatforms(platformStart,platformEnd);
 
     }
 
     public void start(){
+        Random random = new Random();
         // called for first time only
         //generate 2 platforms
-        Platform.randomGenerator();
-        Platform.randomGenerator();
+        Platform firstplatform = new Platform( 50 + random.nextDouble() * (200 - 50),30,0);
+        Game.platforms.add(firstplatform);
+        Platform.randomGenerator(Game.platforms.peek());
         //update the current platfrom count
         setCURRENT_PLATFORM_COUNT(2);
         //add the platform to screen
-        Platform platform1 = Game.platforms.remove();
-        Platform platform2 = Game.platforms.remove();
+        Platform platform1 = Game.platforms.peek();
+        Game.platforms.poll();
+        Platform platform2 = Game.platforms.peek();
         controllerSceneTwo.renderPlatforms(platform1,platform2);
         //now load a player object
         Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
