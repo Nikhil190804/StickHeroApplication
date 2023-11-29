@@ -124,13 +124,16 @@ public class Game implements Render,Movable {
         Game.platforms.poll();
         Platform platform2 = Game.platforms.peek();
         controllerSceneTwo.renderPlatforms(platform1,platform2);
+
+
+
         //now load a player object
         Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
-        Player player = new Player(0,0,45,80,null,50,50,playerImage);
+        Player player = new Player(0,0,45,80,null,30 + platform1.getWidth()/2 ,0,playerImage);
         //now perform calculation on setLayoutX for player object
-        player.setLayoutX(97);
+
         //now add player to screen
-        controllerSceneTwo.renderPlayerObject(player);
+        controllerSceneTwo.renderPlayerObjectFirstTime(player);
     }
 
 
