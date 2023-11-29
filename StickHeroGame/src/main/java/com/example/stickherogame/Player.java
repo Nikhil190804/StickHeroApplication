@@ -50,4 +50,13 @@ public class Player extends ImageView implements Movable {
         this.myStick = myStick;
     }
 
+
+    public double getX_coordinate() {
+        return x;
+    }
+
+
+    public double getY_coordinate() {
+        return y;
+    }
 }
