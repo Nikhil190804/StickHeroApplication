@@ -16,12 +16,12 @@ public class Cherry extends ImageView implements RandomObjectGenerator{
     }
 
 
-    public static void randomGenerator(double startingX , double endingX, Queue<Cherry> cherries){
+    public static void randomGenerator(double startingX , double endingX){
         Cherry cherry = new Cherry();
         Random random = new Random();
         double randomX = random.nextDouble() * Math.abs(startingX - endingX  - cherry.getWidth());
         cherry.x_coordinate = randomX;
-        cherries.add(cherry);
+        Game.cherries.add(cherry);
     }
 
 

@@ -109,6 +109,15 @@ public class ControllerSceneTwo implements Initializable {
     }
 
     public void renderPlayerObject(Player player){
+        Platform platformPlayerisON = Game.platforms.peek();
+        double mid_point = platformPlayerisON.getStartingX() + (platformPlayerisON.getWidth()/2);
+        player.setLayoutX(mid_point);
+        player.setLayoutY(250);
+        parent_anchorpane.getChildren().add(player);
+    }
+    public void renderPlayerObjectFirstTime(Player player){
+        player.setLayoutX(player.getX_coordinate());
+        player.setLayoutY(208);
         parent_anchorpane.getChildren().add(player);
     }
 
@@ -146,5 +155,6 @@ public class ControllerSceneTwo implements Initializable {
         // Increase the length of the stick
         System.out.println("increaing");
     }
+
 
 }
