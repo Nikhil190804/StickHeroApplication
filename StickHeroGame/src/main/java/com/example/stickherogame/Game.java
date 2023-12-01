@@ -115,6 +115,8 @@ public class Game implements Render,Movable {
         // called for first time only
         //generate 2 platforms
         Platform firstplatform = new Platform( 50 + random.nextDouble() * (200 - 50),30,0);
+        //firstplatform.setCentreX(firstplatform.getStartingX()+((firstplatform.getWidthOfPlatform())/2));
+        firstplatform.setCentreX(firstplatform.calculateCentrePosition());
         Game.platforms.add(firstplatform);
         Platform.randomGenerator(Game.platforms.peek());
         //update the current platfrom count
@@ -123,12 +125,14 @@ public class Game implements Render,Movable {
         Platform platform1 = Game.platforms.peek();
         Game.platforms.poll();
         Platform platform2 = Game.platforms.peek();
+        platform1.calculateCentrePosition();
         controllerSceneTwo.renderPlatforms(platform1,platform2);
         //now load a player object
         Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
         Player player = new Player(0,0,45,80,null,50,50,playerImage);
         //now perform calculation on setLayoutX for player object
-        player.setLayoutX(97);
+        player.setLayoutX(platform1.getCentreX());
+       // player.setLayoutX(97);
         //now add player to screen
         controllerSceneTwo.renderPlayerObject(player);
     }

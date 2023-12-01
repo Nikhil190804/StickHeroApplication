@@ -1,9 +1,6 @@
 package com.example.stickherogame;
 
-import javafx.animation.ParallelTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerSceneTwo implements Initializable {
+    private Timeline stickAnimation;
     private boolean isMousePressed;
     private Game newGame;
     @FXML
@@ -57,6 +58,12 @@ public class ControllerSceneTwo implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        parent_anchorpane.setOnMousePressed(this::print);
+        parent_anchorpane.setOnMouseReleased(this::print2);
+        stickAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(0.1), event -> increaseStickLength())
+        );
+        stickAnimation.setCycleCount(Timeline.INDEFINITE);
         newGame = new Game(false,this,0);
         newGame.start();
     }
@@ -73,6 +80,10 @@ public class ControllerSceneTwo implements Initializable {
         platform1.setHeight(platform1.getHeightOfPlatform());
         platform2.setHeight(platform2.getHeightOfPlatform());
         platform2.setWidth(platform2.getWidthOfPlatform());
+        System.out.println(platform1.getLayoutX());
+        System.out.println(platform1.getLayoutY());
+        System.out.println(platform1.getWidth());
+        System.out.println(platform1.getHeight());
         parent_anchorpane.getChildren().add(platform1);
         parent_anchorpane.getChildren().add(platform2);
         /*
@@ -101,6 +112,39 @@ public class ControllerSceneTwo implements Initializable {
         parent_anchorpane.getChildren().add(player);
     }
 
+    private void print(MouseEvent event) {
+        System.out.println("start");
+        Line line = new Line();
+        line.setLayoutX(235);
+        line.setLayoutY(250);
+        line.setStartX(-100);
+        line.setStartY(-3);
+        line.setEndX(-100);
+        line.setEndY(-80);
+        line.setStroke(Color.RED);
+        parent_anchorpane.getChildren().add(line);
+        stickAnimation.play();
+        /*
+        System.out.println("start");
+        while (true){
+            try{
+            Thread.sleep(1000);
+                System.out.println("now");
+                line.setEndX(line.getEndX()+5);
+            }
+            catch (Exception e){
+                System.out.println("fd");
+            }
+        }*/
+    }
+    private void print2(MouseEvent event){
+        System.out.println("end");
+        stickAnimation.stop();
+    }
 
+    private void increaseStickLength() {
+        // Increase the length of the stick
+        System.out.println("increaing");
+    }
 
 }

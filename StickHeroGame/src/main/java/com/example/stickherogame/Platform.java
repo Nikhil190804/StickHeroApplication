@@ -70,6 +70,7 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
 
 
         Platform platform = new Platform(width, startingX, endingX);
+        platform.setCentreX((startingX-endingX)/2);
         Game.platforms.add(platform);
         return platform;
     }
@@ -107,7 +108,8 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
 
 
     public double calculateCentrePosition(){
-        return getStartingX()+getEndingX()/2 ;
+
+        return (getStartingX()+getEndingX())/2 ;
     }
 
 
