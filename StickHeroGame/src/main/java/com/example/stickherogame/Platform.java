@@ -58,7 +58,9 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
     public Platform(double width, double startingX, double endingX) {
         this.width = width;
         this.startingX = startingX;
-        this.endingX = this.startingX+this.width;
+        this.endingX = startingX+width;
+        this.centreX = (startingX + startingX + width )/2;
+
     }
 
     public static Platform randomGenerator(Platform platform1){
@@ -67,6 +69,7 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
         double width = MIN_WIDTH + random.nextDouble() * (MAX_WIDTH - MIN_WIDTH);
         double startingX = platform1.getEndingX() + random.nextDouble() * (MAX_STARTING_X - MIN_STARTING_X) ;
         double endingX = startingX+width;
+
 
 
         Platform platform = new Platform(width, startingX, endingX);
