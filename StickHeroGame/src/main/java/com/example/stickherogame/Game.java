@@ -18,6 +18,8 @@ import java.util.Random;
 public class Game implements Render,Movable {
     private int HighScore;
     private ControllerSceneTwo controllerSceneTwo;
+    private Platform leftPlatform;
+    private Platform rightPlatform;
 
     public int getHighScore() {
         return HighScore;
@@ -58,12 +60,14 @@ public class Game implements Render,Movable {
         this.CURRENT_PLATFORM_COUNT = CURRENT_PLATFORM_COUNT;
     }
 
-    public Game(boolean value, ControllerSceneTwo cont2, int platform_count){
+    public Game(boolean value, ControllerSceneTwo cont2, int platform_count,Platform p1,Platform p2){
         this.isFinished=value;
         Game.platforms= new ArrayDeque<>();
         Game.cherries=new ArrayDeque<>();
         this.controllerSceneTwo=cont2;
         this.CURRENT_PLATFORM_COUNT=platform_count;
+        this.leftPlatform=p1;
+        this.rightPlatform=p2;
     }
     @Override
     public double move(double distance) {
@@ -112,6 +116,7 @@ public class Game implements Render,Movable {
 
     public void start(){
         Random random = new Random();
+        /*
         // called for first time only
         //generate 2 platforms
         Platform firstplatform = new Platform( 50 + random.nextDouble() * (200 - 50),30,0);
@@ -125,23 +130,32 @@ public class Game implements Render,Movable {
         Platform platform1 = Game.platforms.peek();
         Game.platforms.poll();
         Platform platform2 = Game.platforms.peek();
-        platform1.calculateCentrePosition();
+        platform1.setCentreX(platform1.calculateCentrePosition());
         controllerSceneTwo.renderPlatforms(platform1,platform2);
-
-
-
         //now load a player object
-        Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
-        Player player = new Player(0,0,45,80,null,30 + platform1.getWidth()/2 ,0,playerImage);
         //now perform calculation on setLayoutX for player object
-<<<<<<< HEAD
         player.setLayoutX(platform1.getCentreX());
+        player.setPreserveRatio(true);
        // player.setLayoutX(97);
-=======
-
->>>>>>> 8748c86c936d9909c2ffd83e8817f30d1b207656
         //now add player to screen
         controllerSceneTwo.renderPlayerObjectFirstTime(player);
+        System.out.println("platform"+platform1.getCentreX());*/
+
+
+        leftPlatform=new Platform( 50 + random.nextDouble() * (200 - 50),30,0);
+        Game.platforms.add(leftPlatform);
+        //add second platform
+        Platform.randomGenerator(Game.platforms.peek());
+        //now dequee the platforms
+        leftPlatform=Game.platforms.remove();
+        rightPlatform=Game.platforms.remove();
+        Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
+        Player player = new Player(0,0,45,80,null,30 + leftPlatform.getWidth()/2 ,0,playerImage);
+        player.setLayoutX(leftPlatform.getCentreX());
+        player.setPreserveRatio(true);
+        controllerSceneTwo.renderPlatforms(leftPlatform,rightPlatform);
+        controllerSceneTwo.renderPlayerObjectFirstTime(player);
+        setCURRENT_PLATFORM_COUNT(2);
     }
 
 

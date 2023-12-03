@@ -58,13 +58,13 @@ public class ControllerSceneTwo implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        parent_anchorpane.setOnMousePressed(this::print);
-        parent_anchorpane.setOnMouseReleased(this::print2);
+       parent_anchorpane.setOnMousePressed(this::print);
+       parent_anchorpane.setOnMouseReleased(this::print2);
         stickAnimation = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> increaseStickLength())
         );
         stickAnimation.setCycleCount(Timeline.INDEFINITE);
-        newGame = new Game(false,this,0);
+        newGame = new Game(false,this,0,null,null);
         newGame.start();
     }
 
@@ -80,10 +80,6 @@ public class ControllerSceneTwo implements Initializable {
         platform1.setHeight(platform1.getHeightOfPlatform());
         platform2.setHeight(platform2.getHeightOfPlatform());
         platform2.setWidth(platform2.getWidthOfPlatform());
-        System.out.println(platform1.getLayoutX());
-        System.out.println(platform1.getLayoutY());
-        System.out.println(platform1.getWidth());
-        System.out.println(platform1.getHeight());
         parent_anchorpane.getChildren().add(platform1);
         parent_anchorpane.getChildren().add(platform2);
         /*
@@ -116,9 +112,10 @@ public class ControllerSceneTwo implements Initializable {
         parent_anchorpane.getChildren().add(player);
     }
     public void renderPlayerObjectFirstTime(Player player){
-        player.setLayoutX(player.getX_coordinate());
-        player.setLayoutY(208);
+        //player.setLayoutX(player.getX_coordinate());
+        //player.setLayoutY(208);
         parent_anchorpane.getChildren().add(player);
+
     }
 
     private void print(MouseEvent event) {
