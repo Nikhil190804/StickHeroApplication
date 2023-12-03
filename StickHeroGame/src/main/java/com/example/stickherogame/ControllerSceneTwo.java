@@ -107,17 +107,9 @@ public class ControllerSceneTwo implements Initializable {
     }
 
     public void renderPlayerObject(Player player){
-        Platform platformPlayerisON = Game.platforms.peek();
-        double mid_point = platformPlayerisON.getStartingX() + (platformPlayerisON.getWidth()/2);
-        player.setLayoutX(mid_point);
-        player.setLayoutY(250);
+        player.setLayoutX(player.getX_coordinate()- 25 );
+        player.setLayoutY(208);
         parent_anchorpane.getChildren().add(player);
-    }
-    public void renderPlayerObjectFirstTime(Player player){
-        //player.setLayoutX(player.getX_coordinate());
-        //player.setLayoutY(208);
-        parent_anchorpane.getChildren().add(player);
-
     }
 
     private void createStickAsLine(MouseEvent event) {
@@ -153,6 +145,7 @@ public class ControllerSceneTwo implements Initializable {
         Rotate rotate = new Rotate(0, stickAsLine.getLayoutX(), stickAsLine.getLayoutY());
         stickAsLine.getTransforms().add(rotate);
         startRotationAnimation(rotate);
+
     }
 
     private void increaseStickLength() {

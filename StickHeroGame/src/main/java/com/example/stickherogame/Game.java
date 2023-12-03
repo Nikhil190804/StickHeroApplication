@@ -150,7 +150,7 @@ public class Game implements Render,Movable {
         controllerSceneTwo.renderPlayerObjectFirstTime(player);
         System.out.println("platform"+platform1.getCentreX());*/
 
-
+        /*
         leftPlatform=new Platform( 50 + random.nextDouble() * (200 - 50),30,0);
         Game.platforms.add(leftPlatform);
         //add second platform
@@ -164,6 +164,20 @@ public class Game implements Render,Movable {
         player.setPreserveRatio(true);
         controllerSceneTwo.renderPlatforms(leftPlatform,rightPlatform);
         controllerSceneTwo.renderPlayerObjectFirstTime(player);
+        setCURRENT_PLATFORM_COUNT(2);*/
+        leftPlatform=new Platform( 50 + random.nextDouble() * (200 - 50),30,30 + 50 + random.nextDouble() * (200 - 50));
+        Game.platforms.add(leftPlatform);
+        //add second platform
+        Platform.randomGenerator(Game.platforms.peek());
+        //now dequee the platforms
+        leftPlatform=Game.platforms.remove();
+        rightPlatform=Game.platforms.remove();
+        Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
+        Player player = new Player(0,0,45,80,null, leftPlatform.getCentreX(),0,playerImage);
+        player.setLayoutX(leftPlatform.getCentreX());
+        player.setPreserveRatio(true);
+        controllerSceneTwo.renderPlatforms(leftPlatform,rightPlatform);
+        controllerSceneTwo.renderPlayerObject(player);
         setCURRENT_PLATFORM_COUNT(2);
     }
 
