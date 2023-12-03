@@ -13,6 +13,7 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
@@ -33,6 +34,7 @@ public class ControllerSceneTwo implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;
+    private Line stickAsLine;
     public void pausemenu(MouseEvent event){
         boolean playSoundResult=Sound.playSound(2);
        pausemenu.setVisible(true);
@@ -58,8 +60,8 @@ public class ControllerSceneTwo implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       parent_anchorpane.setOnMousePressed(this::print);
-       parent_anchorpane.setOnMouseReleased(this::print2);
+       parent_anchorpane.setOnMousePressed(this::createStickAsLine);
+       parent_anchorpane.setOnMouseReleased(this::rotateStickAsLine);
         stickAnimation = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> increaseStickLength())
         );
@@ -118,17 +120,19 @@ public class ControllerSceneTwo implements Initializable {
 
     }
 
-    private void print(MouseEvent event) {
+    private void createStickAsLine(MouseEvent event) {
         System.out.println("start");
-        Line line = new Line();
-        line.setLayoutX(235);
-        line.setLayoutY(250);
-        line.setStartX(-100);
-        line.setStartY(-3);
-        line.setEndX(-100);
-        line.setEndY(-80);
-        line.setStroke(Color.RED);
-        parent_anchorpane.getChildren().add(line);
+        stickAsLine = new Line();
+        Platform platform1 = newGame.getLeftPlatform();
+        stickAsLine.setLayoutX(platform1.getLayoutX()+platform1.getWidth()+100);
+        stickAsLine.setLayoutY(250);
+        stickAsLine.setStartX(-100);
+        stickAsLine.setEndX(-100);
+        stickAsLine.setStartY(0);
+        stickAsLine.setEndY(0);
+        stickAsLine.setStroke(Color.BLACK);
+        stickAsLine.setStrokeWidth(5);
+        parent_anchorpane.getChildren().add(stickAsLine);
         stickAnimation.play();
         /*
         System.out.println("start");
@@ -143,15 +147,33 @@ public class ControllerSceneTwo implements Initializable {
             }
         }*/
     }
-    private void print2(MouseEvent event){
+    private void rotateStickAsLine(MouseEvent event){
         System.out.println("end");
         stickAnimation.stop();
+        Rotate rotate = new Rotate(0, stickAsLine.getLayoutX(), stickAsLine.getLayoutY());
+        stickAsLine.getTransforms().add(rotate);
+        startRotationAnimation(rotate);
     }
 
     private void increaseStickLength() {
         // Increase the length of the stick
-        System.out.println("increaing");
+        Sound.playSound(1);
+        stickAsLine.setEndY(stickAsLine.getEndY()-5);
     }
 
+    public void initializeStick(){
 
+    }
+
+    private void startRotationAnimation(Rotate rotate) {
+        javafx.animation.Timeline timeline = new javafx.animation.Timeline();
+        timeline.setCycleCount(javafx.animation.Animation.INDEFINITE);
+
+        javafx.animation.KeyFrame keyFrame = new javafx.animation.KeyFrame(
+                javafx.util.Duration.millis(16), // 60 FPS
+                event -> rotate.setAngle(rotate.getAngle() + 1)
+        );
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
+    }
 }

@@ -19,6 +19,15 @@ public class Game implements Render,Movable {
     private int HighScore;
     private ControllerSceneTwo controllerSceneTwo;
     private Platform leftPlatform;
+
+    public Platform getLeftPlatform() {
+        return leftPlatform;
+    }
+
+    public Platform getRightPlatform() {
+        return rightPlatform;
+    }
+
     private Platform rightPlatform;
 
     public int getHighScore() {
