@@ -139,14 +139,36 @@ public class ControllerSceneTwo implements Initializable {
             }
         }*/
     }
-    private void rotateStickAsLine(MouseEvent event){
+    private void rotateStickAsLine(MouseEvent event) {
         System.out.println("end");
         stickAnimation.stop();
-        Rotate rotate = new Rotate(0, stickAsLine.getLayoutX(), stickAsLine.getLayoutY());
-        stickAsLine.getTransforms().add(rotate);
-        startRotationAnimation(rotate);
 
+        // Use the endpoint where the stick is touching the platform as the pivot point
+//        double pivotX = stickAsLine.getEndX();
+//        double pivotY = stickAsLine.getEndY();
+
+        double midPointY = (stickAsLine.getStartY() + stickAsLine.getEndY()) / 2;
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), stickAsLine);
+        rotateTransition.setByAngle(90);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(500), stickAsLine);
+        translateTransition.setByY(midPointY - stickAsLine.getEndY());
+        translateTransition.setByX(-((stickAsLine.getStartY() + stickAsLine.getEndY())/2));
+        ParallelTransition parallelTransition = new ParallelTransition(rotateTransition, translateTransition);
+        TranslateTransition p1 = new TranslateTransition();
+
+
+
+        parallelTransition.play();
+//        parallelTransition.setOnFinished(event -> {
+//            movePlayerOnStick();
+//
+//
+//        });
+        // Start the rotation transition
+//        rotateTransition.play();
     }
+
+
 
     private void increaseStickLength() {
         // Increase the length of the stick
