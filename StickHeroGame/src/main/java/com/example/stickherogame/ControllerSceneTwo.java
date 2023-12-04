@@ -164,8 +164,7 @@ public class ControllerSceneTwo implements Initializable {
 //
 //
 //        });
-        // Start the rotation transition
-//        rotateTransition.play();
+
     }
 
 
