@@ -7,45 +7,45 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stickherogame.ControllerSceneThree">
+<AnchorPane prefHeight="400.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stickherogame.ControllerSceneThree">
     <children>
-        <ImageView fitHeight="405.0" fitWidth="606.0" layoutX="-2.0" pickOnBounds="true">
+        <ImageView fitHeight="405.0" fitWidth="705.0" layoutX="-2.0" pickOnBounds="true">
             <image>
                 <Image url="@Images/bg.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="209.0" layoutY="24.0" prefHeight="37.0" prefWidth="202.0" text="GAME OVER!">
+        <Label alignment="CENTER" layoutX="239.0" layoutY="24.0" prefHeight="37.0" prefWidth="202.0" text="GAME OVER!">
             <font>
                 <Font name="Trebuchet MS" size="30.0" />
             </font>
         </Label>
-        <Rectangle arcHeight="1.0" arcWidth="5.0" fill="#ebe4e4" height="179.0" layoutX="210.0" layoutY="100.0" stroke="#111111" strokeType="INSIDE" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="200.0" />
-        <Label alignment="CENTER" layoutX="270.0" layoutY="116.0" prefHeight="21.0" prefWidth="94.0" text="SCORE" textAlignment="CENTER">
+        <Rectangle arcHeight="1.0" arcWidth="5.0" fill="#ebe4e4" height="179.0" layoutX="240.0" layoutY="97.0" stroke="#111111" strokeType="INSIDE" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="200.0" />
+        <Label alignment="CENTER" layoutX="293.0" layoutY="114.0" prefHeight="21.0" prefWidth="94.0" text="SCORE" textAlignment="CENTER">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>
         </Label>
-        <Label layoutX="303.0" layoutY="149.0" text="10">
+        <Label layoutX="327.0" layoutY="149.0" text="10">
             <font>
                 <Font name="Arial Black" size="20.0" />
             </font>
         </Label>
-        <Label layoutX="304.0" layoutY="223.0" prefHeight="53.0" prefWidth="27.0" text="10">
+        <Label layoutX="328.0" layoutY="223.0" prefHeight="53.0" prefWidth="27.0" text="10">
             <font>
                 <Font name="Arial Black" size="20.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" layoutX="270.0" layoutY="200.0" prefHeight="21.0" prefWidth="94.0" text=" HIGH SCORE" textAlignment="CENTER">
+        <Label alignment="CENTER" layoutX="294.0" layoutY="192.0" prefHeight="21.0" prefWidth="94.0" text=" HIGH SCORE" textAlignment="CENTER">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>
         </Label>
-        <ImageView fitHeight="65.0" fitWidth="94.0" layoutX="217.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="65.0" fitWidth="94.0" layoutX="239.0" layoutY="297.0" onMouseClicked="#home" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/home.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="65.0" fitWidth="94.0" layoutX="340.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="65.0" fitWidth="94.0" layoutX="380.0" layoutY="297.0" onMouseClicked="#restart" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/restart.png" />
             </image>

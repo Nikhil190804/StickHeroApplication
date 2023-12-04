@@ -3,6 +3,7 @@ package com.example.stickherogame;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -146,7 +148,11 @@ public class ControllerSceneTwo implements Initializable {
         // Use the endpoint where the stick is touching the platform as the pivot point
 //        double pivotX = stickAsLine.getEndX();
 //        double pivotY = stickAsLine.getEndY();
-
+        //Button but = new Button();
+        //but.setLayoutX(100);
+        //but.setLayoutY(200);
+        //but.setOnAction(e -> System.out.println("hellooooooooooooooooooooo"));
+        //parent_anchorpane.getChildren().add(but);
         double midPointY = (stickAsLine.getStartY() + stickAsLine.getEndY()) / 2;
         RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), stickAsLine);
         rotateTransition.setByAngle(90);
@@ -154,17 +160,30 @@ public class ControllerSceneTwo implements Initializable {
         translateTransition.setByY(midPointY - stickAsLine.getEndY());
         translateTransition.setByX(-((stickAsLine.getStartY() + stickAsLine.getEndY())/2));
         ParallelTransition parallelTransition = new ParallelTransition(rotateTransition, translateTransition);
-        TranslateTransition p1 = new TranslateTransition();
+        //TranslateTransition p1 = new TranslateTransition();
 
 
 
         parallelTransition.play();
-//        parallelTransition.setOnFinished(event -> {
-//            movePlayerOnStick();
-//
-//
-//        });
-
+        System.out.println(stickAsLine.getStartY()+stickAsLine.getEndY());
+        Platform p1 = newGame.getLeftPlatform();
+        Platform p2 = newGame.getRightPlatform();
+        double sticklen=stickAsLine.getStartY()+stickAsLine.getEndY();
+        sticklen=Math.abs(sticklen);
+        double x = p2.getLayoutX();
+        double s = p1.getLayoutX()+p1.getWidth();
+        boolean isPassed;
+        if(s+sticklen >=x){
+            //pass
+            System.out.println("pass");
+            isPassed=true;
+        }
+        else{
+            isPassed = false;
+            System.out.println("fail");
+        }
+        final double target = sticklen+s;
+        parallelTransition.setOnFinished(even -> movePlayer(newGame.getPlayer(),target,isPassed));
     }
 
 
@@ -179,15 +198,39 @@ public class ControllerSceneTwo implements Initializable {
 
     }
 
-    private void startRotationAnimation(Rotate rotate) {
-        javafx.animation.Timeline timeline = new javafx.animation.Timeline();
-        timeline.setCycleCount(javafx.animation.Animation.INDEFINITE);
-
-        javafx.animation.KeyFrame keyFrame = new javafx.animation.KeyFrame(
-                javafx.util.Duration.millis(16), // 60 FPS
-                event -> rotate.setAngle(rotate.getAngle() + 1)
-        );
-        timeline.getKeyFrames().add(keyFrame);
-        timeline.play();
+    public void movePlayer(Player p , double finalSetLayoutXofPlayer,boolean isPassed) {
+        TranslateTransition tt = new TranslateTransition(Duration.seconds(1), newGame.getPlayer());
+        tt.setToX((finalSetLayoutXofPlayer) - (newGame.getPlayer().getLayoutX()+20));
+        tt.play();
+        if(isPassed==true){
+            //dont need to set another transition for
+        }
+        else{
+            //falling transition
+            tt.setOnFinished(e -> {
+                TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), newGame.getPlayer());
+                translateTransition.setToY(190); // Set the target y-coordinate for falling
+                translateTransition.play();
+                translateTransition.setOnFinished(ev ->  {
+                    Sound.playSound(3);
+                    changeScene2to3(ev);
+                    // now switch scenes and show the endscreen
+                } );
+            });
+        }
     }
+
+    public void changeScene2to3(ActionEvent event){
+        try {
+            root = FXMLLoader.load(getClass().getResource("Scene3.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        scene = parent_anchorpane.getScene();
+        scene.setRoot(root);
+        stage = (Stage) scene.getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

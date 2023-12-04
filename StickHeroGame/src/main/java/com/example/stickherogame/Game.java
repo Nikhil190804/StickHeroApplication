@@ -173,7 +173,7 @@ public class Game implements Render,Movable {
         leftPlatform=Game.platforms.remove();
         rightPlatform=Game.platforms.remove();
         Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
-        Player player = new Player(0,0,45,80,null, leftPlatform.getCentreX(),0,playerImage);
+        player = new Player(0,0,45,80,null, leftPlatform.getCentreX(),0,playerImage);
         player.setLayoutX(leftPlatform.getCentreX());
         player.setPreserveRatio(true);
         controllerSceneTwo.renderPlatforms(leftPlatform,rightPlatform);
