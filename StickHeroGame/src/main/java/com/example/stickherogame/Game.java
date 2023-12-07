@@ -87,7 +87,6 @@ public class Game implements Render,Movable {
     public void render() {
     }
 
-    public void changeScene1to2(){}
     public void generatePlatforms(){}
     public void generateCherries(){}
     Player renderPlayer(){
@@ -180,6 +179,10 @@ public class Game implements Render,Movable {
         controllerSceneTwo.renderPlayerObject(player);
         setCURRENT_PLATFORM_COUNT(2);
     }
+
+
+
+
 
 
 }

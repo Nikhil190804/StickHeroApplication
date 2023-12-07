@@ -1,6 +1,7 @@
 package com.example.stickherogame;
 
 import javafx.animation.*;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,18 +23,18 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ControllerSceneTwo implements Initializable {
     private Timeline stickAnimation;
-    private boolean isMousePressed;
     private Game newGame;
     @FXML
     private AnchorPane pausemenu;
     @FXML
     private AnchorPane parent_anchorpane;
     @FXML
-    private Button button1;
+    private Label scoreLabel;
     private Parent root;
     private Stage stage;
     private Scene scene;
@@ -42,12 +44,6 @@ public class ControllerSceneTwo implements Initializable {
        pausemenu.setVisible(true);
         System.out.println("pause");
     }
-
-    @FXML
-    public void MousePressed(MouseEvent event){}
-
-    @FXML
-    public void MouseReleased(MouseEvent event){}
 
     public void resume(ActionEvent event){
         System.out.println("resume");
@@ -203,6 +199,30 @@ public class ControllerSceneTwo implements Initializable {
         tt.setToX((finalSetLayoutXofPlayer) - (newGame.getPlayer().getLayoutX()+20));
         tt.play();
         if(isPassed==true){
+            int oldScore =newGame.getPlayer().getScore();
+            newGame.getPlayer().setScore(oldScore+1);
+            scoreLabel.setText("Score : "+newGame.getPlayer().getScore());
+            tt.setOnFinished(e -> {
+                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3),stickAsLine);
+                fadeTransition.setFromValue(1.0);
+                fadeTransition.setToValue(0.0);
+                fadeTransition.setOnFinished( ev -> {
+                    parent_anchorpane.getChildren().remove(stickAsLine);
+                });
+                TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(3),newGame.getLeftPlatform());
+                TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(3), newGame.getRightPlatform());
+                TranslateTransition translateTransition3= new TranslateTransition(Duration.seconds(3), newGame.getPlayer());
+                translateTransition.setToX(-(newGame.getLeftPlatform().getWidth()+30)); // Move 100 pixels to the left
+                translateTransition2.setToX(30-newGame.getRightPlatform().getLayoutX()); // Move 100 pixels to the left
+                double coord =30-newGame.getRightPlatform().getLayoutX();
+                //coord+=(newGame.getRightPlatform().getWidthOfPlatform());
+                System.out.println(coord+"coord");
+                translateTransition3.setToX(-((30+newGame.getRightPlatform().getWidthOfPlatform())/2)-25);
+                translateTransition.play();
+                translateTransition2.play();
+                translateTransition3.play();
+                fadeTransition.play();
+            });
             //dont need to set another transition for
         }
         else{
@@ -226,11 +246,22 @@ public class ControllerSceneTwo implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        int currentscore=newGame.getPlayer().getScore();
+       ObservableList<Node> l=root.getChildrenUnmodifiable();
+        for(Node n : l){
+            if(Objects.equals(n.getId(), "currentScore")){
+                ((Label) n).setText(""+currentscore);
+            } else if (Objects.equals(n.getId(),"highScore")) {
+                ((Label) n).setText(""+currentscore);
+            }
+            else{
+                //pass
+            }
+        }
         scene = parent_anchorpane.getScene();
         scene.setRoot(root);
         stage = (Stage) scene.getWindow();
         stage.setScene(scene);
         stage.show();
     }
-
 }

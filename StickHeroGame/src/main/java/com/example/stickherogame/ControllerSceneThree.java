@@ -1,24 +1,33 @@
 package com.example.stickherogame;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class ControllerSceneThree {
+public class ControllerSceneThree  {
     private Parent root;
     private Stage stage;
     private Scene scene;
+    @FXML
+    private Label currentScore;
+    @FXML
+    private Label highScore;
     public void home(MouseEvent event) throws IOException {
         Sound.playSound(2);
         root = FXMLLoader.load(getClass().getResource("Scene1.fxml"));
@@ -56,4 +65,5 @@ public class ControllerSceneThree {
             event.consume();
         }
     }
+
 }

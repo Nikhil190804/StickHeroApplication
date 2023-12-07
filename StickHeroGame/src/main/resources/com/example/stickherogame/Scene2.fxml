@@ -30,5 +30,10 @@
             </Label>
          </children>
       </AnchorPane>
+      <Label fx:id="scoreLabel" layoutX="17.0" layoutY="10.0" text="Score : 0">
+         <font>
+            <Font name="Arial Black" size="16.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
