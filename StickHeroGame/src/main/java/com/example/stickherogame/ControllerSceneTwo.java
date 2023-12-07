@@ -209,6 +209,15 @@ public class ControllerSceneTwo implements Initializable {
                 fadeTransition.setOnFinished( ev -> {
                     parent_anchorpane.getChildren().remove(stickAsLine);
                 });
+                fadeTransition.play();
+                newGame.getLeftPlatform().setLayoutX(-300);
+                newGame.getRightPlatform().setLayoutX(30);
+                double coord = (30)+(newGame.getRightPlatform().getWidth())/2;
+                coord=coord-25;
+                System.out.println(newGame.getRightPlatform().getLayoutX()+"coord");
+                System.out.println(newGame.getRightPlatform().getWidth()+"coord");
+                newGame.getPlayer().setLayoutX(coord);
+                /*
                 TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(3),newGame.getLeftPlatform());
                 TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(3), newGame.getRightPlatform());
                 TranslateTransition translateTransition3= new TranslateTransition(Duration.seconds(3), newGame.getPlayer());
@@ -221,7 +230,7 @@ public class ControllerSceneTwo implements Initializable {
                 translateTransition.play();
                 translateTransition2.play();
                 translateTransition3.play();
-                fadeTransition.play();
+                fadeTransition.play();*/
             });
             //dont need to set another transition for
         }
