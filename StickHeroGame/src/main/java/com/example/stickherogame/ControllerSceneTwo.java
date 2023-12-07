@@ -283,28 +283,64 @@ public class ControllerSceneTwo implements Initializable {
         }
     }
 
-    public void changeScene2to3(ActionEvent event){
-        try {
-            root = FXMLLoader.load(getClass().getResource("Scene3.fxml"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        int currentscore=newGame.getPlayer().getScore();
-       ObservableList<Node> l=root.getChildrenUnmodifiable();
-        for(Node n : l){
-            if(Objects.equals(n.getId(), "currentScore")){
-                ((Label) n).setText(""+currentscore);
-            } else if (Objects.equals(n.getId(),"highScore")) {
-                ((Label) n).setText(""+currentscore);
+    public void changeScene2to3(ActionEvent event) {
+        FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(1), parent_anchorpane);
+        fadeOutTransition.setFromValue(1.0);
+        fadeOutTransition.setToValue(0.0);
+        fadeOutTransition.setOnFinished(e -> {
+            try {
+                root = FXMLLoader.load(getClass().getResource("Scene3.fxml"));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
-            else{
-                //pass
+            int currentscore = newGame.getPlayer().getScore();
+            ObservableList<Node> l = root.getChildrenUnmodifiable();
+            for (Node n : l) {
+                if (Objects.equals(n.getId(), "currentScore")) {
+                    ((Label) n).setText("" + currentscore);
+                } else if (Objects.equals(n.getId(), "highScore")) {
+                    ((Label) n).setText("" + currentscore);
+                } else {
+                    //pass
+                }
             }
-        }
-        scene = parent_anchorpane.getScene();
-        scene.setRoot(root);
-        stage = (Stage) scene.getWindow();
-        stage.setScene(scene);
-        stage.show();
+            Scene newScene = new Scene(root);
+            Stage newStage = (Stage) parent_anchorpane.getScene().getWindow();
+            newStage.setScene(newScene);
+
+            // Add the transition for screen shifting
+            double stickLength = Math.abs(stickAsLine.getEndY() - stickAsLine.getStartY());
+            TranslateTransition shiftTransition = new TranslateTransition(Duration.seconds(1), parent_anchorpane);
+            shiftTransition.setByX(stickLength); // Shift to the new left platform
+            shiftTransition.setOnFinished(eventShift -> {
+                parent_anchorpane.getChildren().remove(newGame.getLeftPlatform());
+                newGame.getLeftPlatform().setLayoutX(-300);
+                newGame.getLeftPlatform().setStartingX(30);
+                newGame.getLeftPlatform().setEndingX(30 + newGame.getLeftPlatform().getWidth());
+                newGame.getLeftPlatform().setCentreX(newGame.getLeftPlatform().calculateCentrePosition());
+                Platform newp = Platform.randomGenerator(newGame.getLeftPlatform());
+                newGame.setLeftPlatform(newp);
+                newp.setLayoutX(newp.getStartingX());
+                newp.setLayoutY(250);
+                newp.setWidth(newp.getWidthOfPlatform());
+                newp.setHeight(newp.getHeightOfPlatform());
+                parent_anchorpane.getChildren().add(newp);
+                newGame.setRightPlatform(Platform.randomGenerator(newp));
+                newGame.getRightPlatform().setLayoutX(newGame.getRightPlatform().getStartingX());
+                newGame.getRightPlatform().setLayoutY(250);
+                newGame.getRightPlatform().setWidth(newGame.getRightPlatform().getWidthOfPlatform());
+                newGame.getRightPlatform().setHeight(newGame.getRightPlatform().getHeightOfPlatform());
+                parent_anchorpane.getChildren().add(newGame.getRightPlatform());
+
+                // Fade in the new scene
+                FadeTransition fadeInTransition = new FadeTransition(Duration.seconds(1), parent_anchorpane);
+                fadeInTransition.setFromValue(0.0);
+                fadeInTransition.setToValue(1.0);
+                fadeInTransition.play();
+            });
+            shiftTransition.play();
+        });
+
+        fadeOutTransition.play();
     }
 }
