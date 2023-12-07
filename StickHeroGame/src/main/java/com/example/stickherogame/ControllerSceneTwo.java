@@ -212,16 +212,27 @@ public class ControllerSceneTwo implements Initializable {
                     newGame.getLeftPlatform().setLayoutX(-300);
                     newGame.getRightPlatform().setLayoutX(30);
                     newGame.setLeftPlatform(newGame.getRightPlatform());
+                    newGame.getLeftPlatform().setStartingX(30);
+                    newGame.getLeftPlatform().setEndingX(30+newGame.getLeftPlatform().getWidth());
+                    newGame.getLeftPlatform().setCentreX(newGame.getLeftPlatform().calculateCentrePosition());
                     Platform newp=Platform.randomGenerator(newGame.getLeftPlatform());
+                    newGame.setRightPlatform(newp);
                     newp.setLayoutX(newp.getStartingX());
                     newp.setLayoutY(250);
                     newp.setWidth(newp.getWidthOfPlatform());
                     newp.setHeight(newp.getHeightOfPlatform());
                     parent_anchorpane.getChildren().add(newp);
-                    newGame.getPlayer().setLayoutX(50);
+                    Player oldPlayer = newGame.getPlayer();
+                    oldPlayer.setId("player");
+                    Player newPlayer = new Player(oldPlayer.getScore(),oldPlayer.getCherryCounter(),oldPlayer.getFitHeight(),oldPlayer.getFitWidth(),null,newGame.getLeftPlatform().getCentreX(),0,oldPlayer.getImage());
+                    parent_anchorpane.getChildren().add(newPlayer);
+                    parent_anchorpane.getChildren().remove(oldPlayer);
+                    newPlayer.setId("player");
+                    newGame.setPlayer(newPlayer);
+                    newPlayer.setLayoutX(newGame.getLeftPlatform().getCentreX()-25);
+                    newPlayer.setPreserveRatio(true);
                 });
                 fadeTransition.play();
-
                 /*
                 Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
                 Player py = new Player(0,0,45,80,null, 30,0,playerImage);
