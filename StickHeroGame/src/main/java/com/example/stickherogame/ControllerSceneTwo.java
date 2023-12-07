@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
@@ -208,15 +209,38 @@ public class ControllerSceneTwo implements Initializable {
                 fadeTransition.setToValue(0.0);
                 fadeTransition.setOnFinished( ev -> {
                     parent_anchorpane.getChildren().remove(stickAsLine);
+                    newGame.getLeftPlatform().setLayoutX(-300);
+                    newGame.getRightPlatform().setLayoutX(30);
+                    newGame.setLeftPlatform(newGame.getRightPlatform());
+                    Platform newp=Platform.randomGenerator(newGame.getLeftPlatform());
+                    newp.setLayoutX(newp.getStartingX());
+                    newp.setLayoutY(250);
+                    newp.setWidth(newp.getWidthOfPlatform());
+                    newp.setHeight(newp.getHeightOfPlatform());
+                    parent_anchorpane.getChildren().add(newp);
+                    newGame.getPlayer().setLayoutX(50);
                 });
                 fadeTransition.play();
-                newGame.getLeftPlatform().setLayoutX(-300);
-                newGame.getRightPlatform().setLayoutX(30);
-                double coord = (30)+(newGame.getRightPlatform().getWidth())/2;
-                coord=coord-25;
-                System.out.println(newGame.getRightPlatform().getLayoutX()+"coord");
-                System.out.println(newGame.getRightPlatform().getWidth()+"coord");
-                newGame.getPlayer().setLayoutX(coord);
+
+                /*
+                Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
+                Player py = new Player(0,0,45,80,null, 30,0,playerImage);
+                py.setPreserveRatio(true);
+                py.setLayoutX(30);
+                parent_anchorpane.getChildren().add(py);
+                System.out.println(py.getLayoutX()+"new plaeyr");
+                System.out.println(newGame.getPlayer().getLayoutX());
+                System.out.println(newGame.getPlayer().getLayoutY());
+                System.out.println(newGame.getPlayer().getX());
+                System.out.println(newGame.getPlayer().getY());
+                System.out.println(newGame.getPlayer().getFitWidth());
+                System.out.println(newGame.getPlayer().getFitHeight());*/
+
+
+
+                /*
+                StoreObject game = new StoreObject("hg",1,2,2);
+                StoreObject.saveGame(game);*/
                 /*
                 TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(3),newGame.getLeftPlatform());
                 TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(3), newGame.getRightPlatform());
@@ -226,11 +250,10 @@ public class ControllerSceneTwo implements Initializable {
                 double coord =30-newGame.getRightPlatform().getLayoutX();
                 //coord+=(newGame.getRightPlatform().getWidthOfPlatform());
                 System.out.println(coord+"coord");
-                translateTransition3.setToX(-((30+newGame.getRightPlatform().getWidthOfPlatform())/2)-25);
+                //translateTransition3.setToX(-((30+newGame.getRightPlatform().getWidthOfPlatform())/2)-25);
                 translateTransition.play();
                 translateTransition2.play();
-                translateTransition3.play();
-                fadeTransition.play();*/
+                //translateTransition3.play();*/
             });
             //dont need to set another transition for
         }

@@ -24,6 +24,14 @@ public class Game implements Render,Movable {
         return leftPlatform;
     }
 
+    public void setLeftPlatform(Platform leftPlatform) {
+        this.leftPlatform = leftPlatform;
+    }
+
+    public void setRightPlatform(Platform rightPlatform) {
+        this.rightPlatform = rightPlatform;
+    }
+
     public Platform getRightPlatform() {
         return rightPlatform;
     }
