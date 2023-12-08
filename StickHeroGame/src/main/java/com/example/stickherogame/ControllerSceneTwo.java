@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
@@ -39,6 +40,10 @@ public class ControllerSceneTwo implements Initializable {
     private AnchorPane parent_anchorpane;
     @FXML
     private Label scoreLabel;
+    @FXML
+    private TextField gameInput;
+    @FXML
+    private Button submit;
     private Parent root;
     private Stage stage;
     private Scene scene;
@@ -47,7 +52,7 @@ public class ControllerSceneTwo implements Initializable {
         flagForPauseMenu=true;
         System.out.println(pausemenu.isMouseTransparent());
         boolean playSoundResult=Sound.playSound(2);
-       pausemenu.setVisible(true);
+        pausemenu.setVisible(true);
         System.out.println("pause");
     }
 
@@ -60,20 +65,24 @@ public class ControllerSceneTwo implements Initializable {
 
     public void save(ActionEvent event){
         //save game logic here
-        pausemenu.setVisible(false);
+        //pausemenu.setVisible(false);
+        gameInput.setVisible(true);
+        submit.setVisible(true);
         flagForPauseMenu=false;
+        /*
         StoreObject store = new StoreObject("game1",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
-        StoreObject.saveGame(store);
+        StoreObject.sav(store);
         StoreObject store2 = new StoreObject("game2",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
-        StoreObject.saveGame(store2);
+        StoreObject.sav(store2);
         StoreObject store3 = new StoreObject("game3",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
-        StoreObject.saveGame(store3);
+        StoreObject.sav(store3);*/
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       parent_anchorpane.setOnMousePressed(this::createStickAsLine);
-       parent_anchorpane.setOnMouseReleased(this::rotateStickAsLine);
+        parent_anchorpane.setOnMousePressed(this::createStickAsLine);
+        parent_anchorpane.setOnMouseReleased(this::rotateStickAsLine);
         stickAnimation = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> increaseStickLength())
         );
@@ -225,10 +234,10 @@ public class ControllerSceneTwo implements Initializable {
             newGame.getPlayer().setScore(oldScore+1);
             scoreLabel.setText("Score : "+newGame.getPlayer().getScore());
             tt.setOnFinished(e -> {
-                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0), stickAsLine);
+                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3),stickAsLine);
                 fadeTransition.setFromValue(1.0);
                 fadeTransition.setToValue(0.0);
-                fadeTransition.setOnFinished(ev -> {
+                fadeTransition.setOnFinished( ev -> {
                     parent_anchorpane.getChildren().remove(stickAsLine);
                     newGame.getLeftPlatform().setLayoutX(-300);
                     newGame.getRightPlatform().setLayoutX(30);
@@ -377,5 +386,12 @@ public class ControllerSceneTwo implements Initializable {
         });
 
         fadeOutTransition.play();
+    }
+
+    public void saveGame(ActionEvent event){
+        String enteredText = gameInput.getText();
+        System.out.println("Entered Text: " + enteredText);
+        StoreObject store = new StoreObject(enteredText,newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
+        StoreObject.sav(store);
     }
 }
