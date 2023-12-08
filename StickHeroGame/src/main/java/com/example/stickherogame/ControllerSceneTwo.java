@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
@@ -40,10 +39,6 @@ public class ControllerSceneTwo implements Initializable {
     private AnchorPane parent_anchorpane;
     @FXML
     private Label scoreLabel;
-    @FXML
-    private TextField gameInput;
-    @FXML
-    private Button submit;
     private Parent root;
     private Stage stage;
     private Scene scene;
@@ -65,18 +60,14 @@ public class ControllerSceneTwo implements Initializable {
 
     public void save(ActionEvent event){
         //save game logic here
-        //pausemenu.setVisible(false);
-        gameInput.setVisible(true);
-        submit.setVisible(true);
+        pausemenu.setVisible(false);
         flagForPauseMenu=false;
-        /*
         StoreObject store = new StoreObject("game1",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
-        StoreObject.sav(store);
+        StoreObject.saveGame(store);
         StoreObject store2 = new StoreObject("game2",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
-        StoreObject.sav(store2);
+        StoreObject.saveGame(store2);
         StoreObject store3 = new StoreObject("game3",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
-        StoreObject.sav(store3);*/
-
+        StoreObject.saveGame(store3);
     }
 
     @Override
@@ -386,12 +377,5 @@ public class ControllerSceneTwo implements Initializable {
         });
 
         fadeOutTransition.play();
-    }
-
-    public void saveGame(ActionEvent event){
-        String enteredText = gameInput.getText();
-        System.out.println("Entered Text: " + enteredText);
-        StoreObject store = new StoreObject(enteredText,newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
-        StoreObject.sav(store);
     }
 }
