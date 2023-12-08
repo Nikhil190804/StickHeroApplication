@@ -204,10 +204,10 @@ public class ControllerSceneTwo implements Initializable {
             newGame.getPlayer().setScore(oldScore+1);
             scoreLabel.setText("Score : "+newGame.getPlayer().getScore());
             tt.setOnFinished(e -> {
-                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3),stickAsLine);
+                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0), stickAsLine);
                 fadeTransition.setFromValue(1.0);
                 fadeTransition.setToValue(0.0);
-                fadeTransition.setOnFinished( ev -> {
+                fadeTransition.setOnFinished(ev -> {
                     parent_anchorpane.getChildren().remove(stickAsLine);
                     newGame.getLeftPlatform().setLayoutX(-300);
                     newGame.getRightPlatform().setLayoutX(30);
