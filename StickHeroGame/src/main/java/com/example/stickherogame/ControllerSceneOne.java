@@ -128,15 +128,14 @@ public class ControllerSceneOne {
         List<StoreObject> savedGamesObjects = new ArrayList<>();
         try{
             ObjectInputStream inputFile =null;
-            inputFile=new ObjectInputStream(new FileInputStream("src/main/resources/com/example/stickherogame/Stored_Game.bin"));
-            while(true){
-                try{
+            inputFile=new ObjectInputStream(new FileInputStream("src/main/resources/com/example/stickherogame/Stored_Game.ser"));
+            try{
+                while(true){
                     StoreObject obj = (StoreObject) inputFile.readObject();
                     savedGamesObjects.add(obj);
                 }
-                catch(EOFException e){
-                    break;
-                }
+            }
+            catch(EOFException e){
 
             }
         }
@@ -153,12 +152,15 @@ public class ControllerSceneOne {
             Stringchoices.add(obj.getUnique());
             System.out.println(obj.getUnique());
         }
-       // List<String> choices = Arrays.asList("Option 1", "Option 2", "Option 3");
+        // List<String> choices = Arrays.asList("Option 1", "Option 2", "Option 3");
         ChoiceDialog<String> dialog = new ChoiceDialog<>(Stringchoices.get(0), Stringchoices);
         dialog.setTitle("Load Game");
         dialog.setHeaderText("Choose an option:");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(choice -> System.out.println("Selected: " + choice));
     }
+
+
+
 
 }
