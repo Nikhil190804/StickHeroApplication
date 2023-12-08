@@ -53,6 +53,10 @@ public class ControllerSceneTwo implements Initializable {
         System.out.println(pausemenu.isMouseTransparent());
         boolean playSoundResult=Sound.playSound(2);
        pausemenu.setVisible(true);
+       submit.setVisible(false);
+       gameInput.setVisible(false);
+       gameInput.setPromptText("Enter Game Name.....");
+       gameInput.clear();
         System.out.println("pause");
     }
 
@@ -68,7 +72,6 @@ public class ControllerSceneTwo implements Initializable {
         //pausemenu.setVisible(false);
         gameInput.setVisible(true);
         submit.setVisible(true);
-        flagForPauseMenu=false;
         /*
         StoreObject store = new StoreObject("game1",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
         StoreObject.sav(store);
@@ -389,9 +392,11 @@ public class ControllerSceneTwo implements Initializable {
     }
 
     public void saveGame(ActionEvent event){
+        flagForPauseMenu=false;
         String enteredText = gameInput.getText();
         System.out.println("Entered Text: " + enteredText);
         StoreObject store = new StoreObject(enteredText,newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
         StoreObject.sav(store);
+        pausemenu.setVisible(false);
     }
 }

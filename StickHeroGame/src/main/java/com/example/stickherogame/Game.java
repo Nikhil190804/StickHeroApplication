@@ -19,6 +19,7 @@ public class Game implements Render,Movable {
     private int HighScore;
     private ControllerSceneTwo controllerSceneTwo;
     private Platform leftPlatform;
+    public static int SkinFlag=1;
 
     public Platform getLeftPlatform() {
         return leftPlatform;
@@ -179,7 +180,13 @@ public class Game implements Render,Movable {
         //now dequee the platforms
         leftPlatform=Game.platforms.remove();
         rightPlatform=Game.platforms.remove();
-        Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
+        Image playerImage;
+        if(Game.SkinFlag==1){
+            playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
+        }
+        else{
+            playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player2.png").toExternalForm());
+        }
         player = new Player(0,0,45,80,null, leftPlatform.getCentreX(),0,playerImage);
         player.setLayoutX(leftPlatform.getCentreX());
         player.setPreserveRatio(true);

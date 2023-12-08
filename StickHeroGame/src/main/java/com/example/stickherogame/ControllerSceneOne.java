@@ -20,10 +20,7 @@ import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 public class ControllerSceneOne {
@@ -117,9 +114,22 @@ public class ControllerSceneOne {
         }
     }
 
-    public void skins(MouseEvent event) {
+    public void skins(ActionEvent event) {
         boolean playSoundResult=Sound.playSound(2);
         System.out.println("skins");
+        List<String> choices = Arrays.asList("Skin 1 (Default)", "Skin 2");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0), choices);
+        dialog.setTitle("Skins");
+        dialog.setHeaderText("Choose an option:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(choice -> {
+            if(choice.equals("Skin 1 (Default)")){
+                Game.SkinFlag=1;
+            }
+            else{
+                Game.SkinFlag=2;
+            }
+        });
     }
 
     public void loadAndSave(MouseEvent event) {
@@ -157,7 +167,29 @@ public class ControllerSceneOne {
         dialog.setTitle("Load Game");
         dialog.setHeaderText("Choose an option:");
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(choice -> System.out.println("Selected: " + choice));
+        result.ifPresent(choice -> {
+            //iterate over the array
+            for (StoreObject obj : savedGamesObjects) {
+                if(obj.getUnique().equals(choice)){
+                    //now start the game with these offsets
+                    ControllerSceneTwo controllerSceneTwo = new ControllerSceneTwo();
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    scene = new Scene(root);
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                    stage.setOnCloseRequest(this::closing);
+                    //controllerSceneTwo.initialize(obj.getScore(),obj.getCherryCounter());
+                    break;
+                }
+            }
+
+        });
+
     }
 
 
