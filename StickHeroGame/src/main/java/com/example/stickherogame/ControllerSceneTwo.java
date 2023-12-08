@@ -52,15 +52,12 @@ public class ControllerSceneTwo implements Initializable {
         flagForPauseMenu=true;
         System.out.println(pausemenu.isMouseTransparent());
         boolean playSoundResult=Sound.playSound(2);
-<<<<<<< HEAD
        pausemenu.setVisible(true);
        submit.setVisible(false);
        gameInput.setVisible(false);
        gameInput.setPromptText("Enter Game Name.....");
        gameInput.clear();
-=======
         pausemenu.setVisible(true);
->>>>>>> 3d9514403f43921bd4e803d24a576570e5a6b660
         System.out.println("pause");
     }
 
