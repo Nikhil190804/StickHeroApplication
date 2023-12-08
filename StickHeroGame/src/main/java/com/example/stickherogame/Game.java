@@ -188,4 +188,9 @@ public class Game implements Render,Movable {
         setCURRENT_PLATFORM_COUNT(2);
     }
 
+
+
+
+
+
 }
