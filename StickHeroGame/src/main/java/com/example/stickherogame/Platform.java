@@ -6,6 +6,7 @@ import java.util.*;
 
 public class Platform extends Rectangle implements RandomObjectGenerator{
     private final double Height=150;
+
     private final Color color = Color.BLACK;
 
 
@@ -114,5 +115,21 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
 
         return (getStartingX()+getEndingX())/2 ;
     }
+
+//    this class is created solely with the purpose of testing randomgenerator platform method and we made new method because we have not to add testing platfrms in quene
+    public static Platform testRandomGenerator(Platform platform1){
+        Random random = new Random();
+
+        double width = MIN_WIDTH + random.nextDouble() * (MAX_WIDTH - MIN_WIDTH);
+        double startingX = platform1.getEndingX() + random.nextDouble() * (MAX_STARTING_X - MIN_STARTING_X) ;
+        double endingX = startingX+width;
+
+        Platform platform = new Platform(width, startingX, endingX);
+        platform.setCentreX((startingX+endingX)/2);
+
+        return platform;
+    }
+
+
 
 }
