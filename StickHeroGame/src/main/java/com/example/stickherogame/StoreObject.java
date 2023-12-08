@@ -6,7 +6,7 @@ import java.util.List;
 
 public class StoreObject implements Serializable {
     private String unique;
-   // private static final long serialVersionUID = 42L;
+    // private static final long serialVersionUID = 42L;
 
 
     public StoreObject(String unique, int score, int highScore, int cherryCounter) {
@@ -53,10 +53,10 @@ public class StoreObject implements Serializable {
     }
 
     public static StoreObject loadGame(String name){
-return null;
+        return null;
 
     }
-        public static void highScoreGame(StoreObject game) {
+    public static void highScoreGame(StoreObject game) {
         ObjectOutputStream output_file = null;
         try{
             output_file=new ObjectOutputStream(new FileOutputStream("src/main/resources/com/example/stickherogame/HighScore_Game.bin"));

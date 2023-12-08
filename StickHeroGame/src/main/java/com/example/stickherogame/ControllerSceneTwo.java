@@ -52,11 +52,15 @@ public class ControllerSceneTwo implements Initializable {
         flagForPauseMenu=true;
         System.out.println(pausemenu.isMouseTransparent());
         boolean playSoundResult=Sound.playSound(2);
+<<<<<<< HEAD
        pausemenu.setVisible(true);
        submit.setVisible(false);
        gameInput.setVisible(false);
        gameInput.setPromptText("Enter Game Name.....");
        gameInput.clear();
+=======
+        pausemenu.setVisible(true);
+>>>>>>> 3d9514403f43921bd4e803d24a576570e5a6b660
         System.out.println("pause");
     }
 
@@ -84,8 +88,8 @@ public class ControllerSceneTwo implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       parent_anchorpane.setOnMousePressed(this::createStickAsLine);
-       parent_anchorpane.setOnMouseReleased(this::rotateStickAsLine);
+        parent_anchorpane.setOnMousePressed(this::createStickAsLine);
+        parent_anchorpane.setOnMouseReleased(this::rotateStickAsLine);
         stickAnimation = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> increaseStickLength())
         );

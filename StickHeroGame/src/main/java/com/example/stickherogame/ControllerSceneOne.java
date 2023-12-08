@@ -162,7 +162,7 @@ public class ControllerSceneOne {
             Stringchoices.add(obj.getUnique());
             System.out.println(obj.getUnique());
         }
-       // List<String> choices = Arrays.asList("Option 1", "Option 2", "Option 3");
+        // List<String> choices = Arrays.asList("Option 1", "Option 2", "Option 3");
         ChoiceDialog<String> dialog = new ChoiceDialog<>(Stringchoices.get(0), Stringchoices);
         dialog.setTitle("Load Game");
         dialog.setHeaderText("Choose an option:");

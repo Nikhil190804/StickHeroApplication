@@ -59,4 +59,9 @@ public class Player extends ImageView implements Movable {
     public double getY_coordinate() {
         return y;
     }
+
+    public void incrementScore(int i) {
+        this.setScore(this.getScore()+i);
+
+    }
 }
