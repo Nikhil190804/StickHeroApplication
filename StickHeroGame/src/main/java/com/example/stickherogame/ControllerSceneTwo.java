@@ -229,75 +229,54 @@ public class ControllerSceneTwo implements Initializable {
 
     }
 
-    public void movePlayer(Player p , double finalSetLayoutXofPlayer,boolean isPassed) {
-        TranslateTransition tt = new TranslateTransition(Duration.seconds(1), newGame.getPlayer());
-        tt.setToX((finalSetLayoutXofPlayer) - (newGame.getPlayer().getLayoutX()+20));
+    public void movePlayer(Player p, double finalSetLayoutXofPlayer, boolean isPassed) {
+        TranslateTransition tt = new TranslateTransition(Duration.seconds(2), newGame.getPlayer());
+        tt.setToX((finalSetLayoutXofPlayer) - (newGame.getPlayer().getLayoutX() + 20));
         tt.play();
-        if(isPassed==true){
-            int oldScore =newGame.getPlayer().getScore();
-            newGame.getPlayer().setScore(oldScore+1);
-            scoreLabel.setText("Score : "+newGame.getPlayer().getScore());
+
+        if (isPassed == true) {
+            int oldScore = newGame.getPlayer().getScore();
+            newGame.getPlayer().setScore(oldScore + 1);
+            scoreLabel.setText("Score : " + newGame.getPlayer().getScore());
             tt.setOnFinished(e -> {
-                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3),stickAsLine);
+                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.25), stickAsLine);
                 fadeTransition.setFromValue(1.0);
+
                 fadeTransition.setToValue(0.0);
-                fadeTransition.setOnFinished( ev -> {
+                fadeTransition.setOnFinished(ev -> {
                     parent_anchorpane.getChildren().remove(stickAsLine);
-                    newGame.getLeftPlatform().setLayoutX(-300);
-                    newGame.getRightPlatform().setLayoutX(30);
-                    newGame.setLeftPlatform(newGame.getRightPlatform());
-                    newGame.getLeftPlatform().setStartingX(30);
-                    newGame.getLeftPlatform().setEndingX(30+newGame.getLeftPlatform().getWidth());
-                    newGame.getLeftPlatform().setCentreX(newGame.getLeftPlatform().calculateCentrePosition());
-                    Platform newp=Platform.randomGenerator(newGame.getLeftPlatform());
-                    newGame.setRightPlatform(newp);
-                    newp.setLayoutX(newp.getStartingX());
-                    newp.setLayoutY(250);
-                    newp.setWidth(newp.getWidthOfPlatform());
-                    newp.setHeight(newp.getHeightOfPlatform());
-                    parent_anchorpane.getChildren().add(newp);
-                    Player oldPlayer = newGame.getPlayer();
-                    oldPlayer.setId("player");
-                    Player newPlayer = new Player(oldPlayer.getScore(),oldPlayer.getCherryCounter(),oldPlayer.getFitHeight(),oldPlayer.getFitWidth(),null,newGame.getLeftPlatform().getCentreX(),0,oldPlayer.getImage());
-                    parent_anchorpane.getChildren().add(newPlayer);
-                    parent_anchorpane.getChildren().remove(oldPlayer);
-                    newPlayer.setId("player");
-                    newGame.setPlayer(newPlayer);
-                    newPlayer.setLayoutX(newGame.getLeftPlatform().getCentreX()-25);
-                    newPlayer.setPreserveRatio(true);
+                    TranslateTransition platformMoveTransition = new TranslateTransition(Duration.seconds(2), newGame.getLeftPlatform());
+                    platformMoveTransition.setToX(-300);
+                    platformMoveTransition.play();
+                    platformMoveTransition.setOnFinished(transitionEvent -> {
+                        newGame.getLeftPlatform().setLayoutX(-300);
+
+                        newGame.getRightPlatform().setLayoutX(30);
+                        newGame.setLeftPlatform(newGame.getRightPlatform());
+                        newGame.getLeftPlatform().setStartingX(30);
+                        newGame.getLeftPlatform().setEndingX(30 + newGame.getLeftPlatform().getWidth());
+                        newGame.getLeftPlatform().setCentreX(newGame.getLeftPlatform().calculateCentrePosition());
+                        Platform newp = Platform.randomGenerator(newGame.getLeftPlatform());
+                        newGame.setRightPlatform(newp);
+                        newp.setLayoutX(newp.getStartingX());
+                        newp.setLayoutY(250);
+                        newp.setWidth(newp.getWidthOfPlatform());
+                        newp.setHeight(newp.getHeightOfPlatform());
+                        parent_anchorpane.getChildren().add(newp);
+                        Player oldPlayer = newGame.getPlayer();
+                        oldPlayer.setId("player");
+                        Player newPlayer = new Player(oldPlayer.getScore(), oldPlayer.getCherryCounter(), oldPlayer.getFitHeight(), oldPlayer.getFitWidth(), null, newGame.getLeftPlatform().getCentreX(), 0, oldPlayer.getImage());
+                        parent_anchorpane.getChildren().add(newPlayer);
+                        parent_anchorpane.getChildren().remove(oldPlayer);
+                        newPlayer.setId("player");
+                        newGame.setPlayer(newPlayer);
+                        newPlayer.setLayoutX(newGame.getLeftPlatform().getCentreX() - 25);
+                        newPlayer.setPreserveRatio(true);
+                    });
                 });
                 fadeTransition.play();
-                /*
-                Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
-                Player py = new Player(0,0,45,80,null, 30,0,playerImage);
-                py.setPreserveRatio(true);
-                py.setLayoutX(30);
-                parent_anchorpane.getChildren().add(py);
-                System.out.println(py.getLayoutX()+"new plaeyr");
-                System.out.println(newGame.getPlayer().getLayoutX());
-                System.out.println(newGame.getPlayer().getLayoutY());
-                System.out.println(newGame.getPlayer().getX());
-                System.out.println(newGame.getPlayer().getY());
-                System.out.println(newGame.getPlayer().getFitWidth());
-                System.out.println(newGame.getPlayer().getFitHeight());*/
-                /*
-                StoreObject game = new StoreObject("hg",1,2,2);
-                StoreObject.saveGame(game);*/
-                /*
-                TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(3),newGame.getLeftPlatform());
-                TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(3), newGame.getRightPlatform());
-                TranslateTransition translateTransition3= new TranslateTransition(Duration.seconds(3), newGame.getPlayer());
-                translateTransition.setToX(-(newGame.getLeftPlatform().getWidth()+30)); // Move 100 pixels to the left
-                translateTransition2.setToX(30-newGame.getRightPlatform().getLayoutX()); // Move 100 pixels to the left
-                double coord =30-newGame.getRightPlatform().getLayoutX();
-                //coord+=(newGame.getRightPlatform().getWidthOfPlatform());
-                System.out.println(coord+"coord");
-                //translateTransition3.setToX(-((30+newGame.getRightPlatform().getWidthOfPlatform())/2)-25);
-                translateTransition.play();
-                translateTransition2.play();
-                //translateTransition3.play();*/
             });
-            //dont need to set another transition for
+            // don't need to set another transition
         }
         else{
             //falling transition
