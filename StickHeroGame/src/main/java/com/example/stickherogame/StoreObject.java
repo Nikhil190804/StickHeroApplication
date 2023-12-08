@@ -1,9 +1,8 @@
 package com.example.stickherogame;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StoreObject implements Serializable {
     private String unique;
@@ -57,24 +56,7 @@ public class StoreObject implements Serializable {
 return null;
 
     }
-    public static void saveGame(StoreObject game) {
-        ObjectOutputStream output_file = null;
-        try{
-            output_file=new ObjectOutputStream(new FileOutputStream("src/main/resources/com/example/stickherogame/Stored_Game.bin",true));
-            output_file.writeObject(game);
-        }
-        catch (IOException e){
-            System.out.println("error");
-        }
-        finally {
-            try {
-                output_file.close();
-            } catch (IOException e) {
-                System.out.println("error");
-            }
-        }
-    }
-    public static void highScoreGame(StoreObject game) {
+        public static void highScoreGame(StoreObject game) {
         ObjectOutputStream output_file = null;
         try{
             output_file=new ObjectOutputStream(new FileOutputStream("src/main/resources/com/example/stickherogame/HighScore_Game.bin"));
@@ -85,6 +67,46 @@ return null;
         }
         finally {
             // output_file.close();
+        }
+
+
+    }
+
+    public static void sav(StoreObject game){
+        List<StoreObject> savedGamesObjects = new ArrayList<>();
+        ObjectInputStream inputFile = null;
+        ObjectOutputStream output_file = null;
+        try{
+            inputFile = new ObjectInputStream(new FileInputStream("src/main/resources/com/example/stickherogame/Stored_Game.ser"));
+            while (true) {
+                StoreObject obj = (StoreObject) inputFile.readObject();
+                savedGamesObjects.add(obj);
+            }
+        }
+        catch (FileNotFoundException e){
+            //first time access
+            savedGamesObjects.add(game);
+        }
+        catch (IOException e) {
+            savedGamesObjects.add(game);
+        }
+        catch (ClassNotFoundException e){}
+        System.out.println(savedGamesObjects.size());
+        //now write the data
+        try {
+            output_file = new ObjectOutputStream(new FileOutputStream("src/main/resources/com/example/stickherogame/Stored_Game.ser"));
+            for(int i=0;i<savedGamesObjects.size();i++){
+                output_file.writeObject(savedGamesObjects.get(i));
+            }
+            System.out.println("done");
+        } catch (IOException e) {
+            System.out.println("error");
+        } finally {
+            try {
+                output_file.close();
+            } catch (IOException e) {
+                System.out.println("error");
+            }
         }
     }
 
