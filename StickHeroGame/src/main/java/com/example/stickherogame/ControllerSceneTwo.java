@@ -22,12 +22,15 @@ import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ControllerSceneTwo implements Initializable {
+    private boolean flagForPauseMenu =false;
     private Timeline stickAnimation;
     private Game newGame;
     @FXML
@@ -41,6 +44,8 @@ public class ControllerSceneTwo implements Initializable {
     private Scene scene;
     private Line stickAsLine;
     public void pausemenu(MouseEvent event){
+        flagForPauseMenu=true;
+        System.out.println(pausemenu.isMouseTransparent());
         boolean playSoundResult=Sound.playSound(2);
        pausemenu.setVisible(true);
         System.out.println("pause");
@@ -50,11 +55,19 @@ public class ControllerSceneTwo implements Initializable {
         System.out.println("resume");
         //parent_anchorpane.setMouseTransparent(true);
         pausemenu.setVisible(false);
+        flagForPauseMenu=false;
     }
 
     public void save(ActionEvent event){
         //save game logic here
         pausemenu.setVisible(false);
+        flagForPauseMenu=false;
+        StoreObject store = new StoreObject("game1",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
+        StoreObject.saveGame(store);
+        StoreObject store2 = new StoreObject("game2",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
+        StoreObject.saveGame(store2);
+        StoreObject store3 = new StoreObject("game3",newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
+        StoreObject.saveGame(store3);
     }
 
     @Override
@@ -112,75 +125,83 @@ public class ControllerSceneTwo implements Initializable {
     }
 
     private void createStickAsLine(MouseEvent event) {
-        System.out.println("start");
-        stickAsLine = new Line();
-        Platform platform1 = newGame.getLeftPlatform();
-        stickAsLine.setLayoutX(platform1.getLayoutX()+platform1.getWidth()+100);
-        stickAsLine.setLayoutY(250);
-        stickAsLine.setStartX(-100);
-        stickAsLine.setEndX(-100);
-        stickAsLine.setStartY(0);
-        stickAsLine.setEndY(0);
-        stickAsLine.setStroke(Color.BLACK);
-        stickAsLine.setStrokeWidth(5);
-        parent_anchorpane.getChildren().add(stickAsLine);
-        stickAnimation.play();
-        /*
-        System.out.println("start");
-        while (true){
-            try{
-            Thread.sleep(1000);
-                System.out.println("now");
-                line.setEndX(line.getEndX()+5);
-            }
-            catch (Exception e){
-                System.out.println("fd");
-            }
-        }*/
-    }
-    private void rotateStickAsLine(MouseEvent event) {
-        System.out.println("end");
-        stickAnimation.stop();
-
-        // Use the endpoint where the stick is touching the platform as the pivot point
-//        double pivotX = stickAsLine.getEndX();
-//        double pivotY = stickAsLine.getEndY();
-        //Button but = new Button();
-        //but.setLayoutX(100);
-        //but.setLayoutY(200);
-        //but.setOnAction(e -> System.out.println("hellooooooooooooooooooooo"));
-        //parent_anchorpane.getChildren().add(but);
-        double midPointY = (stickAsLine.getStartY() + stickAsLine.getEndY()) / 2;
-        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), stickAsLine);
-        rotateTransition.setByAngle(90);
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(500), stickAsLine);
-        translateTransition.setByY(midPointY - stickAsLine.getEndY());
-        translateTransition.setByX(-((stickAsLine.getStartY() + stickAsLine.getEndY())/2));
-        ParallelTransition parallelTransition = new ParallelTransition(rotateTransition, translateTransition);
-        //TranslateTransition p1 = new TranslateTransition();
-
-
-
-        parallelTransition.play();
-        System.out.println(stickAsLine.getStartY()+stickAsLine.getEndY());
-        Platform p1 = newGame.getLeftPlatform();
-        Platform p2 = newGame.getRightPlatform();
-        double sticklen=stickAsLine.getStartY()+stickAsLine.getEndY();
-        sticklen=Math.abs(sticklen);
-        double x = p2.getLayoutX();
-        double s = p1.getLayoutX()+p1.getWidth();
-        boolean isPassed;
-        if(s+sticklen >=x){
-            //pass
-            System.out.println("pass");
-            isPassed=true;
+        double targetX =event.getX();
+        double targetY =event.getY();
+        if((targetX >=636 & targetX<=670) & (targetY>=1 & targetY<=40)){
+            event.consume();
         }
         else{
-            isPassed = false;
-            System.out.println("fail");
+            if(flagForPauseMenu==true) return;
+            System.out.println(event.getX());
+            System.out.println(event.getY());
+            System.out.println("start");
+            stickAsLine = new Line();
+            Platform platform1 = newGame.getLeftPlatform();
+            stickAsLine.setLayoutX(platform1.getLayoutX()+platform1.getWidth()+100);
+            stickAsLine.setLayoutY(250);
+            stickAsLine.setStartX(-100);
+            stickAsLine.setEndX(-100);
+            stickAsLine.setStartY(0);
+            stickAsLine.setEndY(0);
+            stickAsLine.setStroke(Color.BLACK);
+            stickAsLine.setStrokeWidth(5);
+            parent_anchorpane.getChildren().add(stickAsLine);
+            stickAnimation.play();
         }
-        final double target = sticklen+s;
-        parallelTransition.setOnFinished(even -> movePlayer(newGame.getPlayer(),target,isPassed));
+        //y from 1 to 40
+        //x from 636 to 670
+
+    }
+    private void rotateStickAsLine(MouseEvent event) {
+        double targetX =event.getX();
+        double targetY =event.getY();
+        if((targetX >=636 & targetX<=670) & (targetY>=1 & targetY<=40)){
+            //consume the event here , as it has been handled in earlier method
+            event.consume();
+        }
+        else{
+            if(flagForPauseMenu==true) return;
+            System.out.println("end");
+            stickAnimation.stop();
+
+            // Use the endpoint where the stick is touching the platform as the pivot point
+//        double pivotX = stickAsLine.getEndX();
+//        double pivotY = stickAsLine.getEndY();
+            //Button but = new Button();
+            //but.setLayoutX(100);
+            //but.setLayoutY(200);
+            //but.setOnAction(e -> System.out.println("hellooooooooooooooooooooo"));
+            //parent_anchorpane.getChildren().add(but);
+            double midPointY = (stickAsLine.getStartY() + stickAsLine.getEndY()) / 2;
+            RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), stickAsLine);
+            rotateTransition.setByAngle(90);
+            TranslateTransition translateTransition = new TranslateTransition(Duration.millis(500), stickAsLine);
+            translateTransition.setByY(midPointY - stickAsLine.getEndY());
+            translateTransition.setByX(-((stickAsLine.getStartY() + stickAsLine.getEndY())/2));
+            ParallelTransition parallelTransition = new ParallelTransition(rotateTransition, translateTransition);
+            //TranslateTransition p1 = new TranslateTransition();
+
+            parallelTransition.play();
+            System.out.println(stickAsLine.getStartY()+stickAsLine.getEndY());
+            Platform p1 = newGame.getLeftPlatform();
+            Platform p2 = newGame.getRightPlatform();
+            double sticklen=stickAsLine.getStartY()+stickAsLine.getEndY();
+            sticklen=Math.abs(sticklen);
+            double x = p2.getLayoutX();
+            double s = p1.getLayoutX()+p1.getWidth();
+            boolean isPassed;
+            if(s+sticklen >=x){
+                //pass
+                System.out.println("pass");
+                isPassed=true;
+            }
+            else{
+                isPassed = false;
+                System.out.println("fail");
+            }
+            final double target = sticklen+s;
+            parallelTransition.setOnFinished(even -> movePlayer(newGame.getPlayer(),target,isPassed));
+        }
     }
 
 
@@ -246,9 +267,6 @@ public class ControllerSceneTwo implements Initializable {
                 System.out.println(newGame.getPlayer().getY());
                 System.out.println(newGame.getPlayer().getFitWidth());
                 System.out.println(newGame.getPlayer().getFitHeight());*/
-
-
-
                 /*
                 StoreObject game = new StoreObject("hg",1,2,2);
                 StoreObject.saveGame(game);*/
@@ -288,18 +306,36 @@ public class ControllerSceneTwo implements Initializable {
         fadeOutTransition.setFromValue(1.0);
         fadeOutTransition.setToValue(0.0);
         fadeOutTransition.setOnFinished(e -> {
+            int highScore=0;
+            int currentscore = newGame.getPlayer().getScore();
             try {
                 root = FXMLLoader.load(getClass().getResource("Scene3.fxml"));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            int currentscore = newGame.getPlayer().getScore();
+            try{
+                ObjectInputStream inputFile =null;
+                StoreObject highScoreObject=null;
+                inputFile=new ObjectInputStream(new FileInputStream("src/main/resources/com/example/stickherogame/HighScore_Game.bin"));
+                highScoreObject = (StoreObject)inputFile.readObject();
+                highScore=highScoreObject.getHighScore();
+            }
+            catch(IOException | ClassNotFoundException ex){
+                StoreObject highScoreObject = new StoreObject("highscore",0,currentscore,0);
+                StoreObject.highScoreGame(highScoreObject);
+            }
             ObservableList<Node> l = root.getChildrenUnmodifiable();
+            if (currentscore > highScore) {
+                highScore = currentscore;
+                StoreObject highScoreObject = new StoreObject("highscore", 0, currentscore, 0);
+                StoreObject.highScoreGame(highScoreObject);
+            }
+
             for (Node n : l) {
                 if (Objects.equals(n.getId(), "currentScore")) {
                     ((Label) n).setText("" + currentscore);
                 } else if (Objects.equals(n.getId(), "highScore")) {
-                    ((Label) n).setText("" + currentscore);
+                    ((Label) n).setText("" + highScore);
                 } else {
                     //pass
                 }
@@ -307,7 +343,6 @@ public class ControllerSceneTwo implements Initializable {
             Scene newScene = new Scene(root);
             Stage newStage = (Stage) parent_anchorpane.getScene().getWindow();
             newStage.setScene(newScene);
-
             // Add the transition for screen shifting
             double stickLength = Math.abs(stickAsLine.getEndY() - stickAsLine.getStartY());
             TranslateTransition shiftTransition = new TranslateTransition(Duration.seconds(1), parent_anchorpane);
