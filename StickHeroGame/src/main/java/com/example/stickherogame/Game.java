@@ -92,28 +92,16 @@ public class Game implements Render,Movable {
     }
     @Override
     public double move(double distance) {
-        return 0;
+        //it moves the screen
+        double d = distance+300;
+        return d;
     }
 
     @Override
-    public void render() {
-    }
-
-    public void generatePlatforms(){}
-    public void generateCherries(){}
-    Player renderPlayer(Player player){
+    public Player renderPlayer(Player player){
         player.setLayoutX(player.getX_coordinate()- 25 );
         player.setLayoutY(208);
         return player;
-    }
-    Cherry renderCherries(){
-        return null;
-    }
-    public boolean isSuccessfull(){
-        return false;
-    }
-    public void changeScene(ActionEvent event){
-
     }
     public void runner(){
         // run the game until not finished
@@ -123,63 +111,13 @@ public class Game implements Render,Movable {
             platform1.setY(250);
             Platform.randomGenerator(platform1);
             Game.platforms.poll();
-
             Platform platform2 = Game.platforms.peek();
-
             controllerSceneTwo.renderPlatforms(platform1,platform2);
-
-
         }
-//        Platform.randomGenerator();
-//        Platform.randomGenerator();
-//        Platform platformStart = platforms.remove();
-//        Platform platformEnd = platforms.remove();
-//        controllerSceneTwo.renderPlatforms(platformStart,platformEnd);
-
     }
 
     public void start(){
         Random random = new Random();
-        /*
-        // called for first time only
-        //generate 2 platforms
-        Platform firstplatform = new Platform( 50 + random.nextDouble() * (200 - 50),30,0);
-        //firstplatform.setCentreX(firstplatform.getStartingX()+((firstplatform.getWidthOfPlatform())/2));
-        firstplatform.setCentreX(firstplatform.calculateCentrePosition());
-        Game.platforms.add(firstplatform);
-        Platform.randomGenerator(Game.platforms.peek());
-        //update the current platfrom count
-        setCURRENT_PLATFORM_COUNT(2);
-        //add the platform to screen
-        Platform platform1 = Game.platforms.peek();
-        Game.platforms.poll();
-        Platform platform2 = Game.platforms.peek();
-        platform1.setCentreX(platform1.calculateCentrePosition());
-        controllerSceneTwo.renderPlatforms(platform1,platform2);
-        //now load a player object
-        //now perform calculation on setLayoutX for player object
-        player.setLayoutX(platform1.getCentreX());
-        player.setPreserveRatio(true);
-       // player.setLayoutX(97);
-        //now add player to screen
-        controllerSceneTwo.renderPlayerObjectFirstTime(player);
-        System.out.println("platform"+platform1.getCentreX());*/
-
-        /*
-        leftPlatform=new Platform( 50 + random.nextDouble() * (200 - 50),30,0);
-        Game.platforms.add(leftPlatform);
-        //add second platform
-        Platform.randomGenerator(Game.platforms.peek());
-        //now dequee the platforms
-        leftPlatform=Game.platforms.remove();
-        rightPlatform=Game.platforms.remove();
-        Image playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player-removebg-preview.png").toExternalForm());
-        Player player = new Player(0,0,45,80,null,30 + leftPlatform.getWidth()/2 ,0,playerImage);
-        player.setLayoutX(leftPlatform.getCentreX());
-        player.setPreserveRatio(true);
-        controllerSceneTwo.renderPlatforms(leftPlatform,rightPlatform);
-        controllerSceneTwo.renderPlayerObjectFirstTime(player);
-        setCURRENT_PLATFORM_COUNT(2);*/
         leftPlatform=new Platform( 50 + random.nextDouble() * (200 - 50),30,30 + 50 + random.nextDouble() * (200 - 50));
         Game.platforms.add(leftPlatform);
         //add second platform
@@ -194,7 +132,6 @@ public class Game implements Render,Movable {
         else{
             playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player2.png").toExternalForm());
         }
-        System.out.println(Game.isLoad);
         if(Game.isLoad==true){
             System.out.println("score:"+Game.LoadedObject.getScore());
             player = new Player(Game.LoadedObject.getScore(),Game.LoadedObject.getCherryCounter(),45,80,null, leftPlatform.getCentreX(),0,playerImage);
@@ -210,5 +147,6 @@ public class Game implements Render,Movable {
         controllerSceneTwo.renderPlayerObject(player);
         setCURRENT_PLATFORM_COUNT(2);
         controllerSceneTwo.setScore();
+        controllerSceneTwo.setCherry();
     }
 }
