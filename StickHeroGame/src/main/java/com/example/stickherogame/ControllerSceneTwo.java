@@ -240,7 +240,7 @@ public class ControllerSceneTwo implements Initializable{
     }
 
     public void changeScene2to3(ActionEvent event) {
-        FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(1), parent_anchorpane);
+        FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(0.5), parent_anchorpane);
         fadeOutTransition.setFromValue(1.0);
         fadeOutTransition.setToValue(0.0);
         fadeOutTransition.setOnFinished(e -> {
@@ -280,6 +280,7 @@ public class ControllerSceneTwo implements Initializable{
             Scene newScene = new Scene(root);
             Stage newStage = (Stage) parent_anchorpane.getScene().getWindow();
             newStage.setScene(newScene);
+            /*
             // Add the transition for screen shifting
             double stickLength = Math.abs(stickAsLine.getEndY() - stickAsLine.getStartY());
             TranslateTransition shiftTransition = new TranslateTransition(Duration.seconds(1), parent_anchorpane);
@@ -310,9 +311,8 @@ public class ControllerSceneTwo implements Initializable{
                 fadeInTransition.setToValue(1.0);
                 fadeInTransition.play();
             });
-            shiftTransition.play();
+            shiftTransition.play();*/
         });
-
         fadeOutTransition.play();
     }
 

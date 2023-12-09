@@ -61,7 +61,6 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
         this.startingX = startingX;
         this.endingX = startingX+width;
         this.centreX = (startingX + startingX + width )/2;
-
     }
 
     public static Platform randomGenerator(Platform platform1){
@@ -71,16 +70,11 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
         double startingX = platform1.getEndingX() + random.nextDouble() * (MAX_STARTING_X - MIN_STARTING_X) ;
         double endingX = startingX+width;
 
-
-
         Platform platform = new Platform(width, startingX, endingX);
         platform.setCentreX((startingX+endingX)/2);
         Game.platforms.add(platform);
         return platform;
     }
-
-
-
 
     public Color getColor() {
         return color;

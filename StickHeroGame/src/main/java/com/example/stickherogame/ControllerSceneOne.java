@@ -142,9 +142,6 @@ public class ControllerSceneOne {
                     } catch (IOException e) {
                         //IO exception occured
                     }
-                    System.out.println("fcghbjn");
-                    System.out.println(Game.isLoad);
-                    System.out.println("fghj");
                     scene = new Scene(root);
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
