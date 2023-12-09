@@ -20,6 +20,8 @@ public class StickTest {
 
         // Then
         assertEquals(length, stick.getLength());
+        assertEquals(x, stick.getX());
+        assertEquals(y, stick.getY());
         assertEquals(rotationAngle, stick.getRotationAngle());
         assertEquals(speed_of_rotation, stick.getSpeed_of_rotation());
     }
