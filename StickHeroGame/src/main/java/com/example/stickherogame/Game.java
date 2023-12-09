@@ -194,6 +194,7 @@ public class Game implements Render,Movable {
         else{
             playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player2.png").toExternalForm());
         }
+        System.out.println(Game.isLoad);
         if(Game.isLoad==true){
             System.out.println("score:"+Game.LoadedObject.getScore());
             player = new Player(Game.LoadedObject.getScore(),Game.LoadedObject.getCherryCounter(),45,80,null, leftPlatform.getCentreX(),0,playerImage);

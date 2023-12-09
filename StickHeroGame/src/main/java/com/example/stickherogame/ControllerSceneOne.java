@@ -134,14 +134,17 @@ public class ControllerSceneOne {
             //iterate over the array
             for (StoreObject obj : savedGamesObjects) {
                 if(obj.getUnique().equals(choice)){
+                    Game.isLoad=true;
+                    Game.LoadedObject=obj;
                     //now start the game with these offsets
                     try {
                         root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
                     } catch (IOException e) {
                         //IO exception occured
                     }
-                    Game.isLoad=true;
-                    Game.LoadedObject=obj;
+                    System.out.println("fcghbjn");
+                    System.out.println(Game.isLoad);
+                    System.out.println("fghj");
                     scene = new Scene(root);
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
