@@ -230,7 +230,7 @@ public class ControllerSceneTwo implements Initializable {
     }
 
     public void movePlayer(Player p, double finalSetLayoutXofPlayer, boolean isPassed) {
-        TranslateTransition tt = new TranslateTransition(Duration.seconds(2), newGame.getPlayer());
+        TranslateTransition tt = new TranslateTransition(Duration.seconds(1), newGame.getPlayer());
         tt.setToX((finalSetLayoutXofPlayer) - (newGame.getPlayer().getLayoutX() + 20));
         tt.play();
 
@@ -245,33 +245,35 @@ public class ControllerSceneTwo implements Initializable {
                 fadeTransition.setToValue(0.0);
                 fadeTransition.setOnFinished(ev -> {
                     parent_anchorpane.getChildren().remove(stickAsLine);
-                    TranslateTransition platformMoveTransition = new TranslateTransition(Duration.seconds(2), newGame.getLeftPlatform());
-                    platformMoveTransition.setToX(-300);
+                    TranslateTransition platformMoveTransition = new TranslateTransition(Duration.seconds(0.5), newGame.getLeftPlatform());
+                    platformMoveTransition.setByX(-300);
                     platformMoveTransition.play();
                     platformMoveTransition.setOnFinished(transitionEvent -> {
                         newGame.getLeftPlatform().setLayoutX(-300);
 
-                        newGame.getRightPlatform().setLayoutX(30);
-                        newGame.setLeftPlatform(newGame.getRightPlatform());
-                        newGame.getLeftPlatform().setStartingX(30);
-                        newGame.getLeftPlatform().setEndingX(30 + newGame.getLeftPlatform().getWidth());
-                        newGame.getLeftPlatform().setCentreX(newGame.getLeftPlatform().calculateCentrePosition());
-                        Platform newp = Platform.randomGenerator(newGame.getLeftPlatform());
-                        newGame.setRightPlatform(newp);
-                        newp.setLayoutX(newp.getStartingX());
-                        newp.setLayoutY(250);
-                        newp.setWidth(newp.getWidthOfPlatform());
-                        newp.setHeight(newp.getHeightOfPlatform());
-                        parent_anchorpane.getChildren().add(newp);
-                        Player oldPlayer = newGame.getPlayer();
-                        oldPlayer.setId("player");
-                        Player newPlayer = new Player(oldPlayer.getScore(), oldPlayer.getCherryCounter(), oldPlayer.getFitHeight(), oldPlayer.getFitWidth(), null, newGame.getLeftPlatform().getCentreX(), 0, oldPlayer.getImage());
-                        parent_anchorpane.getChildren().add(newPlayer);
-                        parent_anchorpane.getChildren().remove(oldPlayer);
-                        newPlayer.setId("player");
-                        newGame.setPlayer(newPlayer);
-                        newPlayer.setLayoutX(newGame.getLeftPlatform().getCentreX() - 25);
-                        newPlayer.setPreserveRatio(true);
+
+                            newGame.getRightPlatform().setLayoutX(30);
+                            newGame.setLeftPlatform(newGame.getRightPlatform());
+                            newGame.getLeftPlatform().setStartingX(30);
+                            newGame.getLeftPlatform().setEndingX(30 + newGame.getLeftPlatform().getWidth());
+                            newGame.getLeftPlatform().setCentreX(newGame.getLeftPlatform().calculateCentrePosition());
+                            Platform newp = Platform.randomGenerator(newGame.getLeftPlatform());
+                            newGame.setRightPlatform(newp);
+                            newp.setLayoutX(newp.getStartingX());
+                            newp.setLayoutY(250);
+                            newp.setWidth(newp.getWidthOfPlatform());
+                            newp.setHeight(newp.getHeightOfPlatform());
+                            parent_anchorpane.getChildren().add(newp);
+                            Player oldPlayer = newGame.getPlayer();
+                            oldPlayer.setId("player");
+                            Player newPlayer = new Player(oldPlayer.getScore(), oldPlayer.getCherryCounter(), oldPlayer.getFitHeight(), oldPlayer.getFitWidth(), null, newGame.getLeftPlatform().getCentreX(), 0, oldPlayer.getImage());
+                            parent_anchorpane.getChildren().add(newPlayer);
+                            parent_anchorpane.getChildren().remove(oldPlayer);
+                            newPlayer.setId("player");
+                            newGame.setPlayer(newPlayer);
+                            newPlayer.setLayoutX(newGame.getLeftPlatform().getCentreX() - 25);
+                            newPlayer.setPreserveRatio(true);
+
                     });
                 });
                 fadeTransition.play();
