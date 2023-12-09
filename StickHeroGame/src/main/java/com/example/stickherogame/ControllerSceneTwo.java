@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ControllerSceneTwo implements Initializable{
@@ -73,15 +74,26 @@ public class ControllerSceneTwo implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        parent_anchorpane.setOnMousePressed(this::createStickAsLine);
-        parent_anchorpane.setOnMouseReleased(this::rotateStickAsLine);
-        stickAnimation = new Timeline(
-                new KeyFrame(Duration.seconds(0.1), event -> increaseStickLength())
-        );
-        stickAnimation.setCycleCount(Timeline.INDEFINITE);
-        newGame = new Game(false,this,0,null,null);
-        newGame.start();
+        try {
+            parent_anchorpane.setOnMousePressed(this::createStickAsLine);
+            parent_anchorpane.setOnMouseReleased(this::rotateStickAsLine);
+            stickAnimation = new Timeline(
+                    new KeyFrame(Duration.seconds(0.1), event -> increaseStickLength())
+            );
+            stickAnimation.setCycleCount(Timeline.INDEFINITE);
+            newGame = new Game(false, this, 0, null, null);
+            newGame.start();
+        } catch (Exception e) {
+            // If an exception occurs during initialization, throw a GameInitializationException
+            try {
+                throw new GameInitializationException ("Game Initialization Error");
+            } catch (GameInitializationException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
     }
+
 
     public void renderPlatforms(Platform platform1, Platform platform2){
         platform1.setLayoutX(platform1.getStartingX());
@@ -177,6 +189,21 @@ public class ControllerSceneTwo implements Initializable{
     }
 
     public void movePlayer(Player p, double finalSetLayoutXofPlayer, boolean isPassed) {
+        Random random = new Random();
+
+        boolean cherrySpawner = random.nextBoolean();
+        if (cherrySpawner){
+            Cherry cherry = new Cherry();
+            cherry.setLayoutX(150 + random.nextDouble()*400 );
+            cherry.setLayoutY(newGame.getLeftPlatform().getLayoutY() - 50 - (random.nextDouble()*(180)));
+            cherry.setImage(new Image(getClass().getResource("/com/example/stickherogame/Images/cherry.png").toExternalForm()));
+            cherry.setFitHeight(10);
+            cherry.setFitWidth(20);
+            parent_anchorpane.getChildren().add(cherry);
+
+
+        }
+
         TranslateTransition tt = new TranslateTransition(Duration.seconds(1), newGame.getPlayer());
         tt.setToX((finalSetLayoutXofPlayer) - (newGame.getPlayer().getLayoutX() + 20));
         tt.play();
@@ -348,4 +375,6 @@ public class ControllerSceneTwo implements Initializable{
     public void setScore(){
         scoreLabel.setText("Score : "+newGame.getPlayer().getScore());
     }
+
+
 }
