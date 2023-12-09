@@ -21,8 +21,11 @@ public class Cherry extends ImageView implements RandomObjectGenerator{
         Random random = new Random();
         double randomX = random.nextDouble() * Math.abs(startingX - endingX  - cherry.getWidth());
         cherry.x_coordinate = randomX;
+
         Game.cherries.add(cherry);
     }
+
+
 
 
     private boolean hasBeenCollected = false;
