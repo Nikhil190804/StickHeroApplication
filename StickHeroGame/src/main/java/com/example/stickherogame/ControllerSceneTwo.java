@@ -195,15 +195,16 @@ public class ControllerSceneTwo implements Initializable{
         double checkingCherrycord; // Initialize before the cherry spawner block
         boolean cherrySpawner;
         if (true) {
-            Cherry cherry = new Cherry();
+            Cherry cherry = Cherry.CherryFactory.createRandomCherry(0, 0);
+            Game.cherries.add(cherry);
             cherry.setLayoutX(newGame.getLeftPlatform().getLayoutX() + newGame.getLeftPlatform().getWidth() + random.nextDouble() * 200);
             checkingCherrycord = cherry.getLayoutX();
             if (cherry.getLayoutX() <= newGame.getRightPlatform().getStartingX()) {
                 cherrySpawner = true;
-                cherry.setLayoutY(newGame.getLeftPlatform().getLayoutY() - 10);
+                cherry.setLayoutY(newGame.getLeftPlatform().getLayoutY() - 15);
                 cherry.setImage(new Image(getClass().getResource("/com/example/stickherogame/Images/cherry.png").toExternalForm()));
                 cherry.setFitHeight(10);
-                cherry.setFitWidth(20);
+                cherry.setFitWidth(20); 
                 cherry.setId("cherry");
                 parent_anchorpane.getChildren().add(cherry);
             }
