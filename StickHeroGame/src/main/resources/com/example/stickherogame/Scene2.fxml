@@ -43,5 +43,10 @@
             <Font name="Bodoni MT Bold" size="30.0" />
          </font>
       </Label>
+      <Label fx:id="cherryLabel" layoutX="143.0" layoutY="10.0" text="Cherry : 0">
+         <font>
+            <Font name="Arial Black" size="16.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

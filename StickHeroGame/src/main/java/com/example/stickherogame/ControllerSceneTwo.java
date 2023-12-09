@@ -49,6 +49,8 @@ public class ControllerSceneTwo implements Initializable{
     @FXML
     private Label scoreLabel;
     @FXML
+    private Label cherryLabel;
+    @FXML
     private TextField gameInput;
     @FXML
     private Button submit;
@@ -108,7 +110,7 @@ public class ControllerSceneTwo implements Initializable{
     }
 
     private void createStickAsLine(MouseEvent event) {
-        parent_anchorpane.setMouseTransparent(true);
+        //parent_anchorpane.setMouseTransparent(true);
         double targetX =event.getX();
         double targetY =event.getY();
         boolean result = checkForInputsInsideBounds(targetX,targetY);
@@ -140,7 +142,6 @@ public class ControllerSceneTwo implements Initializable{
         }
         else{
             if(flagForPauseMenu==true) return;
-            System.out.println("end");
             stickAnimation.stop();
             double midPointY = (stickAsLine.getStartY() + stickAsLine.getEndY()) / 2;
             RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), stickAsLine);
@@ -161,10 +162,8 @@ public class ControllerSceneTwo implements Initializable{
             boolean isPassed;
             if(s+sticklen >=start && (s+sticklen)<=last){
                 //pass
-                System.out.println("pass");
                 isPassed=true;
                 double centreXPlatform2=p2.getCentreX();
-                System.out.println(centreXPlatform2);
                 if((s+sticklen >=centreXPlatform2-5) && ((s+sticklen)<=centreXPlatform2+5)){
                     perfect.setVisible(true);
                     isCenterX=true;
@@ -179,7 +178,6 @@ public class ControllerSceneTwo implements Initializable{
             }
             else{
                 isPassed = false;
-                System.out.println("fail");
             }
             final double target = sticklen+s;
             parallelTransition.setOnFinished(even -> movePlayer(newGame.getPlayer(),target,isPassed));
@@ -192,28 +190,33 @@ public class ControllerSceneTwo implements Initializable{
         stickAsLine.setEndY(stickAsLine.getEndY()-5);
     }
 
-    public void initializeStick(){
-
-    }
-
     public void movePlayer(Player p, double finalSetLayoutXofPlayer, boolean isPassed) {
         Random random = new Random();
-        boolean cherrySpawner = random.nextBoolean();
-        if (cherrySpawner){
+        double checkingCherrycord; // Initialize before the cherry spawner block
+        boolean cherrySpawner;
+        if (true) {
             Cherry cherry = new Cherry();
-            cherry.setLayoutX(150 + random.nextDouble()*400 );
-            cherry.setLayoutY(newGame.getLeftPlatform().getLayoutY() - 50 - (random.nextDouble()*(180)));
-            cherry.setImage(new Image(getClass().getResource("/com/example/stickherogame/Images/cherry.png").toExternalForm()));
-            cherry.setFitHeight(20);
-            cherry.setFitWidth(40);
-            cherry.setId("cherry");
-            cherry.setOnMousePressed(this::updateCherryCounter);
-            parent_anchorpane.getChildren().add(cherry);
+            cherry.setLayoutX(newGame.getLeftPlatform().getLayoutX() + newGame.getLeftPlatform().getWidth() + random.nextDouble() * 200);
+            checkingCherrycord = cherry.getLayoutX();
+            if (cherry.getLayoutX() <= newGame.getRightPlatform().getStartingX()) {
+                cherrySpawner = true;
+                cherry.setLayoutY(newGame.getLeftPlatform().getLayoutY() - 10);
+                cherry.setImage(new Image(getClass().getResource("/com/example/stickherogame/Images/cherry.png").toExternalForm()));
+                cherry.setFitHeight(10);
+                cherry.setFitWidth(20);
+                cherry.setId("cherry");
+                parent_anchorpane.getChildren().add(cherry);
+            }
+            else{
+                cherrySpawner=false;
+            }
+        } else {
+            cherrySpawner = true;
+            checkingCherrycord = -300;
         }
         TranslateTransition tt = new TranslateTransition(Duration.seconds(1), newGame.getPlayer());
         tt.setToX((finalSetLayoutXofPlayer) - (newGame.getPlayer().getLayoutX() + 20));
         tt.play();
-
         if (isPassed == true) {
             int oldScore = newGame.getPlayer().getScore();
             if(isCenterX==true){
@@ -225,6 +228,9 @@ public class ControllerSceneTwo implements Initializable{
             }
             scoreLabel.setText("Score : " + newGame.getPlayer().getScore());
             tt.setOnFinished(e -> {
+                if (newGame.getLeftPlatform().getLayoutX() + newGame.getLeftPlatform().getWidth() < checkingCherrycord && (cherrySpawner==true)) {
+                    updateCherryCounter();
+                }
                 FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.25), stickAsLine);
                 fadeTransition.setFromValue(1.0);
                 fadeTransition.setToValue(0.0);
@@ -256,8 +262,7 @@ public class ControllerSceneTwo implements Initializable{
                             newGame.setPlayer(newPlayer);
                             newPlayer.setLayoutX(newGame.getLeftPlatform().getCentreX() - 25);
                             newPlayer.setPreserveRatio(true);
-                            parent_anchorpane.setMouseTransparent(false);
-
+                            //parent_anchorpane.setMouseTransparent(false);
                     });
                 });
                 fadeTransition.play();
@@ -320,38 +325,6 @@ public class ControllerSceneTwo implements Initializable{
             Scene newScene = new Scene(root);
             Stage newStage = (Stage) parent_anchorpane.getScene().getWindow();
             newStage.setScene(newScene);
-            /*
-            // Add the transition for screen shifting
-            double stickLength = Math.abs(stickAsLine.getEndY() - stickAsLine.getStartY());
-            TranslateTransition shiftTransition = new TranslateTransition(Duration.seconds(1), parent_anchorpane);
-            shiftTransition.setByX(stickLength); // Shift to the new left platform
-            shiftTransition.setOnFinished(eventShift -> {
-                parent_anchorpane.getChildren().remove(newGame.getLeftPlatform());
-                newGame.getLeftPlatform().setLayoutX(-300);
-                newGame.getLeftPlatform().setStartingX(30);
-                newGame.getLeftPlatform().setEndingX(30 + newGame.getLeftPlatform().getWidth());
-                newGame.getLeftPlatform().setCentreX(newGame.getLeftPlatform().calculateCentrePosition());
-                Platform newp = Platform.randomGenerator(newGame.getLeftPlatform());
-                newGame.setLeftPlatform(newp);
-                newp.setLayoutX(newp.getStartingX());
-                newp.setLayoutY(250);
-                newp.setWidth(newp.getWidthOfPlatform());
-                newp.setHeight(newp.getHeightOfPlatform());
-                parent_anchorpane.getChildren().add(newp);
-                newGame.setRightPlatform(Platform.randomGenerator(newp));
-                newGame.getRightPlatform().setLayoutX(newGame.getRightPlatform().getStartingX());
-                newGame.getRightPlatform().setLayoutY(250);
-                newGame.getRightPlatform().setWidth(newGame.getRightPlatform().getWidthOfPlatform());
-                newGame.getRightPlatform().setHeight(newGame.getRightPlatform().getHeightOfPlatform());
-                parent_anchorpane.getChildren().add(newGame.getRightPlatform());
-
-                // Fade in the new scene
-                FadeTransition fadeInTransition = new FadeTransition(Duration.seconds(1), parent_anchorpane);
-                fadeInTransition.setFromValue(0.0);
-                fadeInTransition.setToValue(1.0);
-                fadeInTransition.play();
-            });
-            shiftTransition.play();*/
         });
         fadeOutTransition.play();
     }
@@ -359,7 +332,6 @@ public class ControllerSceneTwo implements Initializable{
     public void saveGame(ActionEvent event){
         flagForPauseMenu=false;
         String enteredText = gameInput.getText();
-        System.out.println("Entered Text: " + enteredText);
         StoreObject store = new StoreObject(enteredText,newGame.getPlayer().getScore(),0,newGame.getPlayer().getCherryCounter());
         StoreObject.sav(store);
         pausemenu.setVisible(false);
@@ -389,13 +361,14 @@ public class ControllerSceneTwo implements Initializable{
         scoreLabel.setText("Score : "+newGame.getPlayer().getScore());
     }
 
-    public void updateCherryCounter(MouseEvent event){
-        Node sourceNode = (Node) event.getSource();
-        String nodeId = sourceNode.getId();
-        System.out.println(nodeId);
+    public void updateCherryCounter(){
         int oldCherryCounter = newGame.getPlayer().getCherryCounter();
         newGame.getPlayer().setCherryCounter(oldCherryCounter+1);
         parent_anchorpane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("cherry"));
+        cherryLabel.setText("Cherry : "+newGame.getPlayer().getCherryCounter());
+    }
+    public void setCherry(){
+        cherryLabel.setText("Cherry : "+newGame.getPlayer().getCherryCounter());
     }
 
 }
