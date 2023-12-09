@@ -241,7 +241,6 @@ public class ControllerSceneTwo implements Initializable {
             tt.setOnFinished(e -> {
                 FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.25), stickAsLine);
                 fadeTransition.setFromValue(1.0);
-
                 fadeTransition.setToValue(0.0);
                 fadeTransition.setOnFinished(ev -> {
                     parent_anchorpane.getChildren().remove(stickAsLine);
@@ -250,8 +249,6 @@ public class ControllerSceneTwo implements Initializable {
                     platformMoveTransition.play();
                     platformMoveTransition.setOnFinished(transitionEvent -> {
                         newGame.getLeftPlatform().setLayoutX(-300);
-
-
                             newGame.getRightPlatform().setLayoutX(30);
                             newGame.setLeftPlatform(newGame.getRightPlatform());
                             newGame.getLeftPlatform().setStartingX(30);
