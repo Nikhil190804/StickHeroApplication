@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -30,12 +31,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ControllerSceneTwo implements Initializable{
     private boolean flagForPauseMenu =false;
+
     private Timeline stickAnimation;
+    private boolean isCenterX = false;
     private Game newGame;
+    @FXML
+    private Label perfect;
     @FXML
     private AnchorPane pausemenu;
     @FXML
@@ -102,6 +108,7 @@ public class ControllerSceneTwo implements Initializable{
     }
 
     private void createStickAsLine(MouseEvent event) {
+        parent_anchorpane.setMouseTransparent(true);
         double targetX =event.getX();
         double targetY =event.getY();
         boolean result = checkForInputsInsideBounds(targetX,targetY);
@@ -156,6 +163,19 @@ public class ControllerSceneTwo implements Initializable{
                 //pass
                 System.out.println("pass");
                 isPassed=true;
+                double centreXPlatform2=p2.getCentreX();
+                System.out.println(centreXPlatform2);
+                if((s+sticklen >=centreXPlatform2-5) && ((s+sticklen)<=centreXPlatform2+5)){
+                    perfect.setVisible(true);
+                    isCenterX=true;
+                    FadeTransition perfectTrnasiton = new FadeTransition(Duration.seconds(6),perfect);
+                    perfectTrnasiton.setFromValue(1.0);
+                    perfectTrnasiton.setToValue(0.0);
+                    perfectTrnasiton.setOnFinished(event1 -> {
+                        perfect.setVisible(false);
+                    });
+                    perfectTrnasiton.play();
+                }
             }
             else{
                 isPassed = false;
@@ -177,13 +197,32 @@ public class ControllerSceneTwo implements Initializable{
     }
 
     public void movePlayer(Player p, double finalSetLayoutXofPlayer, boolean isPassed) {
+        Random random = new Random();
+        boolean cherrySpawner = random.nextBoolean();
+        if (cherrySpawner){
+            Cherry cherry = new Cherry();
+            cherry.setLayoutX(150 + random.nextDouble()*400 );
+            cherry.setLayoutY(newGame.getLeftPlatform().getLayoutY() - 50 - (random.nextDouble()*(180)));
+            cherry.setImage(new Image(getClass().getResource("/com/example/stickherogame/Images/cherry.png").toExternalForm()));
+            cherry.setFitHeight(20);
+            cherry.setFitWidth(40);
+            cherry.setId("cherry");
+            cherry.setOnMousePressed(this::updateCherryCounter);
+            parent_anchorpane.getChildren().add(cherry);
+        }
         TranslateTransition tt = new TranslateTransition(Duration.seconds(1), newGame.getPlayer());
         tt.setToX((finalSetLayoutXofPlayer) - (newGame.getPlayer().getLayoutX() + 20));
         tt.play();
 
         if (isPassed == true) {
             int oldScore = newGame.getPlayer().getScore();
-            newGame.getPlayer().setScore(oldScore + 1);
+            if(isCenterX==true){
+                newGame.getPlayer().setScore(oldScore + 2);
+                isCenterX=false;
+            }
+            else{
+                newGame.getPlayer().setScore(oldScore + 1);
+            }
             scoreLabel.setText("Score : " + newGame.getPlayer().getScore());
             tt.setOnFinished(e -> {
                 FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.25), stickAsLine);
@@ -217,6 +256,7 @@ public class ControllerSceneTwo implements Initializable{
                             newGame.setPlayer(newPlayer);
                             newPlayer.setLayoutX(newGame.getLeftPlatform().getCentreX() - 25);
                             newPlayer.setPreserveRatio(true);
+                            parent_anchorpane.setMouseTransparent(false);
 
                     });
                 });
@@ -348,4 +388,14 @@ public class ControllerSceneTwo implements Initializable{
     public void setScore(){
         scoreLabel.setText("Score : "+newGame.getPlayer().getScore());
     }
+
+    public void updateCherryCounter(MouseEvent event){
+        Node sourceNode = (Node) event.getSource();
+        String nodeId = sourceNode.getId();
+        System.out.println(nodeId);
+        int oldCherryCounter = newGame.getPlayer().getCherryCounter();
+        newGame.getPlayer().setCherryCounter(oldCherryCounter+1);
+        parent_anchorpane.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("cherry"));
+    }
+
 }

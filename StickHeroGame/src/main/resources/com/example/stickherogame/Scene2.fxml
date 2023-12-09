@@ -38,5 +38,10 @@
                 <Font name="Arial Black" size="16.0" />
             </font>
         </Label>
+      <Label fx:id="perfect" layoutX="275.0" layoutY="34.0" text="Perfect !!!!!" textFill="#ff640a" visible="false">
+         <font>
+            <Font name="Bodoni MT Bold" size="30.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
