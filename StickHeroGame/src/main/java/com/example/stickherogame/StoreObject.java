@@ -66,8 +66,6 @@ public class StoreObject implements Serializable {
         finally {
             // output_file.close();
         }
-
-
     }
 
     public static void sav(StoreObject game){
