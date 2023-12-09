@@ -51,5 +51,15 @@ public class Cherry extends ImageView implements RandomObjectGenerator{
     }
 
 
+//    Dont know how to use this
+    public static boolean cherrySpawned(){
+        return true;
+    }
+
+
+//    to be done after stick class to check collision
+    public boolean checkCollision(Player player){
+        return false;
+    }
 
 }

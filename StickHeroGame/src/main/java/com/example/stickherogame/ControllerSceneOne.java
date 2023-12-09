@@ -61,6 +61,7 @@ public class ControllerSceneOne {
         alert.show();
     }
 
+
     public void sound(MouseEvent event) {
         boolean playSoundResult=Sound.playSound(2);
         String id_of_image = ((ImageView) event.getSource()).getId();
@@ -100,6 +101,7 @@ public class ControllerSceneOne {
 
     public void loadAndSave(MouseEvent event) {
         boolean playSoundResult=Sound.playSound(2);
+        System.out.println("loadandsave");
         List<StoreObject> savedGamesObjects = new ArrayList<>();
         try{
             ObjectInputStream inputFile =null;
