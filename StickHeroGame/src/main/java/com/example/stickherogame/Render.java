@@ -1,5 +1,5 @@
 package com.example.stickherogame;
 
 public interface Render {
-    public void render();
+    Player renderPlayer(Player player);
 }
