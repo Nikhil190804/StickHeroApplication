@@ -3,8 +3,13 @@ package com.example.stickherogame;
 import javafx.scene.image.ImageView;
 import java.util.*;
 public class Cherry extends ImageView implements RandomObjectGenerator{
+
+
+//    cherry is done using factory design pattern
+
+
     private final double Height=150;
-    private final double Width=150;
+    private static final double Width=150;
     double x_coordinate;
 
 
@@ -15,13 +20,18 @@ public class Cherry extends ImageView implements RandomObjectGenerator{
 
     }
 
+    // Private constructor to prevent direct instantiation
+    private Cherry(double x_coordinate) {
+        this.x_coordinate = x_coordinate;
+    }
 
-    public static void randomGenerator(double startingX , double endingX){
-        Cherry cherry = new Cherry();
-        Random random = new Random();
-        double randomX = random.nextDouble() * Math.abs(startingX - endingX  - cherry.getWidth());
-        cherry.x_coordinate = randomX;
-        Game.cherries.add(cherry);
+
+    public static class CherryFactory {
+        public static Cherry createRandomCherry(double startingX, double endingX) {
+            Random random = new Random();
+            double randomX = random.nextDouble() * Math.abs(startingX - endingX - Width);
+            return new Cherry(randomX);
+        }
     }
 
 
@@ -50,16 +60,5 @@ public class Cherry extends ImageView implements RandomObjectGenerator{
         this.x_coordinate = x_coordinate;
     }
 
-
-//    Dont know how to use this
-    public static boolean cherrySpawned(){
-        return true;
-    }
-
-
-//    to be done after stick class to check collision
-    public boolean checkCollision(Player player){
-        return false;
-    }
 
 }

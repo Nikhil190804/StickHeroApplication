@@ -101,7 +101,6 @@ public class ControllerSceneOne {
 
     public void loadAndSave(MouseEvent event) {
         boolean playSoundResult=Sound.playSound(2);
-        System.out.println("loadandsave");
         List<StoreObject> savedGamesObjects = new ArrayList<>();
         try{
             ObjectInputStream inputFile =null;

@@ -110,7 +110,7 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
         return (getStartingX()+getEndingX())/2 ;
     }
 
-//    this class is created solely with the purpose of testing randomgenerator platform method and we made new method because we have not to add testing platfrms in quene
+    //    this class is created solely with the purpose of testing randomgenerator platform method and we made new method because we have not to add testing platfrms in quene
     public static Platform testRandomGenerator(Platform platform1){
         Random random = new Random();
 
@@ -123,7 +123,5 @@ public class Platform extends Rectangle implements RandomObjectGenerator{
 
         return platform;
     }
-
-
 
 }

@@ -6,26 +6,26 @@ public class Sound {
     public static boolean playSound(int sound_flag) {
         String AudioFile = "Sound" + sound_flag+".wav";
         String AudioFilePath = "src/main/resources/com/example/stickherogame/Sounds/" + AudioFile;
-       if(MainApplication.PLAY_SOUND){
-           try {
-               File newFile = new File(AudioFilePath);
-               if (newFile.exists() == true) {
-                   //System.out.println("valid");
-                   String uriString = newFile.toURI().toString();
-                   Media media = new Media(uriString);
-                   MediaPlayer mediaPlayer = new MediaPlayer(media);
-                   mediaPlayer.play();
-                   return true;
-               } else {
-                   return false;
-               }
-           } catch (Exception e) {
-               return false;
-           }
-       }
-       else{
-           return false;
-       }
+        if(MainApplication.PLAY_SOUND){
+            try {
+                File newFile = new File(AudioFilePath);
+                if (newFile.exists() == true) {
+                    //System.out.println("valid");
+                    String uriString = newFile.toURI().toString();
+                    Media media = new Media(uriString);
+                    MediaPlayer mediaPlayer = new MediaPlayer(media);
+                    mediaPlayer.play();
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
     }
 }
 

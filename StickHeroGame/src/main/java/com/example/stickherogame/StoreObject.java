@@ -8,7 +8,6 @@ public class StoreObject implements Serializable {
     private String unique;
     // private static final long serialVersionUID = 42L;
 
-
     public StoreObject(String unique, int score, int highScore, int cherryCounter) {
         this.unique = unique;
         Score = score;
@@ -63,7 +62,6 @@ public class StoreObject implements Serializable {
             output_file.writeObject(game);
         }
         catch (IOException e){
-            System.out.println("error");
         }
         finally {
             // output_file.close();
@@ -91,23 +89,18 @@ public class StoreObject implements Serializable {
             savedGamesObjects.add(game);
         }
         catch (ClassNotFoundException e){}
-        System.out.println(savedGamesObjects.size());
         //now write the data
         try {
             output_file = new ObjectOutputStream(new FileOutputStream("src/main/resources/com/example/stickherogame/Stored_Game.ser"));
             for(int i=0;i<savedGamesObjects.size();i++){
                 output_file.writeObject(savedGamesObjects.get(i));
             }
-            System.out.println("done");
         } catch (IOException e) {
-            System.out.println("error");
         } finally {
             try {
                 output_file.close();
             } catch (IOException e) {
-                System.out.println("error");
             }
         }
     }
-
 }
