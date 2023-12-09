@@ -2,7 +2,7 @@ package com.example.stickherogame;
 
 import java.util.Comparator;
 
-public class PlatFormComparotor implements Comparator<Platform> {
+public class PlatFromComparator implements Comparator<Platform> {
     @Override
     public int compare(Platform platform, Platform platform2) {
         int intValue = (int) platform.getLayoutX();
