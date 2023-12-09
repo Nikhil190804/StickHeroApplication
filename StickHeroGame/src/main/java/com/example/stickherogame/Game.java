@@ -1,6 +1,7 @@
 package com.example.stickherogame;
 
 
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -20,6 +21,8 @@ public class Game implements Render,Movable {
     private ControllerSceneTwo controllerSceneTwo;
     private Platform leftPlatform;
     public static int SkinFlag=1;
+    public static boolean isLoad=false;
+    public static StoreObject LoadedObject=null;
 
     public Platform getLeftPlatform() {
         return leftPlatform;
@@ -63,7 +66,7 @@ public class Game implements Render,Movable {
         this.player = player;
     }
 
-    private boolean isFinished;
+    private  boolean isFinished;
     private Player player;
     public static Queue<Platform> platforms;
     public static Queue<Cherry> cherries;
@@ -98,8 +101,10 @@ public class Game implements Render,Movable {
 
     public void generatePlatforms(){}
     public void generateCherries(){}
-    Player renderPlayer(){
-        return null;
+    Player renderPlayer(Player player){
+        player.setLayoutX(player.getX_coordinate()- 25 );
+        player.setLayoutY(208);
+        return player;
     }
     Cherry renderCherries(){
         return null;
@@ -107,7 +112,9 @@ public class Game implements Render,Movable {
     public boolean isSuccessfull(){
         return false;
     }
-    public void changeScene2to3(){}
+    public void changeScene(ActionEvent event){
+
+    }
     public void runner(){
         // run the game until not finished
         while (isFinished==false){
@@ -187,12 +194,20 @@ public class Game implements Render,Movable {
         else{
             playerImage = new Image(getClass().getResource("/com/example/stickherogame/Images/player2.png").toExternalForm());
         }
-        player = new Player(0,0,45,80,null, leftPlatform.getCentreX(),0,playerImage);
+        if(Game.isLoad==true){
+            System.out.println("score:"+Game.LoadedObject.getScore());
+            player = new Player(Game.LoadedObject.getScore(),Game.LoadedObject.getCherryCounter(),45,80,null, leftPlatform.getCentreX(),0,playerImage);
+        }
+        else{
+            player = new Player(0,0,45,80,null, leftPlatform.getCentreX(),0,playerImage);
+        }
+        Game.isLoad=false;
+        Game.LoadedObject=null;
         player.setLayoutX(leftPlatform.getCentreX());
         player.setPreserveRatio(true);
         controllerSceneTwo.renderPlatforms(leftPlatform,rightPlatform);
         controllerSceneTwo.renderPlayerObject(player);
         setCURRENT_PLATFORM_COUNT(2);
+        controllerSceneTwo.setScore();
     }
-
 }

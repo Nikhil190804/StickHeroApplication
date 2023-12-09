@@ -9,8 +9,8 @@ public class Stick extends Line {
 
     public Stick(double length, double x, double y, double rotationAngle, double speed_of_rotation) {
         this.length = length;
-        this.x = x;
-        this.y = y;
+        this.setLayoutX(x);
+        this.setLayoutY(y);
         this.rotationAngle = rotationAngle;
         this.speed_of_rotation = speed_of_rotation;
     }

@@ -1,6 +1,5 @@
 package com.example.stickherogame;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,10 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.util.Duration;
-
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -36,38 +32,10 @@ public class ControllerSceneOne {
         stage.setScene(scene);
         stage.show();
         stage.setOnCloseRequest(this::closing);
-        System.out.println("play");
-        /*
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(1));
-        fadeOut.setNode(((Node) event.getSource()).getScene().getRoot());
-        fadeOut.setFromValue(1);
-        fadeOut.setToValue(0);
-        fadeOut.setOnFinished(e -> {
-            try {
-                // Load the new scene
-                Parent root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
-
-                // Create a fade in transition for the new scene
-                FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
-                fadeIn.setFromValue(0);
-                fadeIn.setToValue(1);
-
-                // Set up the new scene and show it
-                Scene newScene = new Scene(root);
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(newScene);
-                fadeIn.play();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-
-        // Start the fade out transition
-        fadeOut.play();*/
     }
 
     private void closing(WindowEvent event){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Close Menu");
         alert.setResizable(true);
         alert.setContentText("Do You Really Want to Quit");
@@ -116,7 +84,6 @@ public class ControllerSceneOne {
 
     public void skins(ActionEvent event) {
         boolean playSoundResult=Sound.playSound(2);
-        System.out.println("skins");
         List<String> choices = Arrays.asList("Skin 1 (Default)", "Skin 2");
         ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0), choices);
         dialog.setTitle("Skins");
@@ -146,23 +113,19 @@ public class ControllerSceneOne {
                 }
             }
             catch(EOFException e){
-
+                // EOF reached
             }
         }
         catch (IOException e) {
-            //
-            System.out.println("142");
+            // Some IO execption occured
         }
         catch(ClassNotFoundException e){
-            System.out.println("52");
+            // Class doesn't exist
         }
-        System.out.println(savedGamesObjects.size());
         List<String> Stringchoices = new ArrayList<>();
         for (StoreObject obj : savedGamesObjects) {
             Stringchoices.add(obj.getUnique());
-            System.out.println(obj.getUnique());
         }
-        // List<String> choices = Arrays.asList("Option 1", "Option 2", "Option 3");
         ChoiceDialog<String> dialog = new ChoiceDialog<>(Stringchoices.get(0), Stringchoices);
         dialog.setTitle("Load Game");
         dialog.setHeaderText("Choose an option:");
@@ -172,27 +135,21 @@ public class ControllerSceneOne {
             for (StoreObject obj : savedGamesObjects) {
                 if(obj.getUnique().equals(choice)){
                     //now start the game with these offsets
-                    ControllerSceneTwo controllerSceneTwo = new ControllerSceneTwo();
                     try {
                         root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        //IO exception occured
                     }
+                    Game.isLoad=true;
+                    Game.LoadedObject=obj;
                     scene = new Scene(root);
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
                     stage.show();
                     stage.setOnCloseRequest(this::closing);
-                    //controllerSceneTwo.initialize(obj.getScore(),obj.getCherryCounter());
                     break;
                 }
             }
-
         });
-
     }
-
-
-
-
 }
